@@ -5,7 +5,13 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Product {
-    public static HashMap<String,String> categories = new HashMap<String,String>();
+    public static HashMap<String,String> categories = new HashMap<String,String>(){{
+        put("1","Bebidas");
+        put("2","Entradas");
+        put("3","Plato fuerte");
+    }
+    };
+    
     public static int cons = 0;
     private int code;
     private String name;
@@ -130,8 +136,17 @@ public class Product {
     }
     
     public static Product getProductbyid(HashMap<Integer,Product> products, int code){
-        Product p = products.get(code);
-            return p;
+        return products.get(code);
+    }
+    public void editProduct(String name, String description,
+            int price, String category, boolean available){
+        //Validar
+        this.setName(name);
+        this.setDescription(description);
+        this.setPrice(price);
+        this.setCategory(category);
+        this.setAvailable(available);
+        
     }
  
 }

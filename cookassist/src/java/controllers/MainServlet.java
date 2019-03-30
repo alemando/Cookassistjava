@@ -32,4 +32,13 @@ public class MainServlet extends HttpServlet  {
         return products;
     }
     
+    public static void loadProductCategories(HttpServletRequest request){
+        HttpSession session = request.getSession();        
+        HashMap<String, String> categories = Product.categories;
+        if(null != session.getAttribute("productCategories")){
+            categories = (HashMap<String,String>) session.getAttribute("productCategories");
+        }
+        session.setAttribute("productCategories", categories);
+    }
+    
 }

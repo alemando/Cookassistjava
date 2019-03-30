@@ -5,6 +5,8 @@ html {
 body{
     min-height:100%;
     padding-top: 60px;
+    background-color: #002b96;
+    background-image: url("../img/fabric-of-squares.png");
 }
 
 h2{
@@ -103,6 +105,7 @@ footer ul{
 
 .content{
  padding: 10px;
+ background-color: #999999;
 }
 
 body {
@@ -112,18 +115,37 @@ body {
     flex-direction: column;
     height: 100vh; /* Use height insted of min-height for IE 10/11. */
   }
-  main {
-    /* Prevent shrinking the main area in IE 10/11. */
-    -ms-flex-negative: 0;
-    flex-shrink: 0;
-  }
+main {
+   /* Prevent shrinking the main area in IE 10/11. */
+   -ms-flex-negative: 0;
+   flex-shrink: 0;
+ }
 
-  footer {
-    padding: 1rem 0;
-    margin-top: auto;
-  }
+footer {
+  padding: 1rem 0;
+  margin-top: auto;
+}
+
+#sidebar{
+    padding: 0;
+}
+
+.cookassist_logo{
+    width: 199px;
+    height: 44px;
+}
   
-  #sidebar{
-      padding: 0;
-  }
-  
+#login .container #login-row #login-column #login-box {
+  margin-top: 120px;
+  margin-bottom: 60px;
+  max-width: 600px;
+  height: 320px;
+  border: 1px solid #9C9C9C;
+  background-color: #EAEAEA;
+}
+#login .container #login-row #login-column #login-box #login-form {
+  padding: 20px;
+}
+#login .container #login-row #login-column #login-box #login-form #register-link {
+  margin-top: -85px;
+}

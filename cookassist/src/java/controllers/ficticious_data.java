@@ -1,34 +1,26 @@
 package controllers;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import models.Product;
 
 @WebServlet(urlPatterns = {"/ficticious_data"})
-public class ficticious_data extends HttpServlet {
+public class ficticious_data extends MainServlet {
 
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();        
-        List<Product> products = new ArrayList<Product>();
-        if(null != session.getAttribute("Products")){
-            products = (ArrayList<Product>) session.getAttribute("Products");
-        }
-        Product p = new Product(0, "Arroz", "Algo....", 12000, "1", "url", true);
-        Product p1 = new Product(0, "Leche", "Algo....", 12000, "1", "url", true);
-        products.add(p);
-        products.add(p1);
-        session.setAttribute("Products", products);
-        response.sendRedirect("/");
+        MainServlet.insertProduct(request,new Product(0, "Arroz con pollo", "Arroz con trocitos de pollo, con zanahoria y avichuelas", 9500, "3", "img/id-1.jpg", true));
+        MainServlet.insertProduct(request,new Product(0, "Arroz con leche", "Arroz cocinado con dulce y servido con queso", 6000, "3", "img/id-2.jpg", true));
+        MainServlet.insertProduct(request,new Product(0, "Jugo de fresa", "Jugo de fresa natural en agua o en leche", 4000, "1", "img/id-3.jpg", true));
+        MainServlet.insertProduct(request,new Product(0, "Café", "Delicioso café colombiano", 3000, "1", "img/id-4.jpg", true));
+        MainServlet.insertProduct(request,new Product(0, "Sopa de pollo", "Sopa de pollo, con verduras", 8000, "3", "img/id-5.jpg", true));
+        MainServlet.insertProduct(request,new Product(0, "Papitas fritas", "Papitas a la francesa", 5000, "3", "img/id-6.jpg", true));
+        
+        response.sendRedirect("");
     }
     
 

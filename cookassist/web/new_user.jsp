@@ -3,8 +3,7 @@
     <section>
         <div class="container-fluid">
             <div class="row">
-                <%@ include file="nav_div_product.jsp" %>
-                <div class="col-md-10 content">
+                <div class="col-md-8 offset-2 content">
                     <form action="<c:url value="/products?option=new"/>" class="form-horizontal" method="POST" enctype="multipart/form-data">
                         <div class="row">
                             <div class="form-group col-md-6">
@@ -54,4 +53,5 @@
         </div>
     </section>
 </main>
+    
 <%@ include file="footer.jsp" %>

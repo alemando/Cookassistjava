@@ -35,6 +35,7 @@ public class products extends MainServlet {
             }
         }else{
             if(option.equals("new")){
+                MainServlet.loadProductCategories(request);
                 view = request.getRequestDispatcher("new_product.jsp");
             }else if(option.equals("show")){ 
                  view = request.getRequestDispatcher("show_products.jsp");
@@ -58,12 +59,12 @@ public class products extends MainServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String option = request.getParameter("option");
+        String id = request.getParameter("id");
         RequestDispatcher view;
         
         if(option.equals("new")){
-            
             //Valores y campos
-            int id = (Product.cons + 1);
+            int ide = (Product.cons + 1);
             String name = request.getParameter("name");
             String category = request.getParameter("category");
             String description = request.getParameter("description");
@@ -79,8 +80,8 @@ public class products extends MainServlet {
             String archive = image.getSubmittedFileName();
             int aux_point = archive.lastIndexOf(".");
             String ext = archive.substring(aux_point, archive.length());
-            String image_url_write = uploadPath+"/id-"+id+ext;
-            String image_url = "img"+"/id-"+id+ext;
+            String image_url_write = uploadPath+"/id-"+ide+ext;
+            String image_url = "img"+"/id-"+ide+ext;
             
             //Verifico la carpeta de guardado de las imagenes
             File fileUploadDirectory = new File(uploadPath);
@@ -99,14 +100,63 @@ public class products extends MainServlet {
                 System.out.println("Ocurrio un problema");
             }
             
-            view = request.getRequestDispatcher("new_product.jsp");
+            response.sendRedirect("products");
+            
+        }else if(option.equals("edit") && id != null){
+            
+            //deberia validar que id sea numerico y que el hashmap funcione
+            HashMap<Integer,Product> products = MainServlet.getListProducts(request);
+            Product p = Product.getProductbyid(products, Integer.parseInt(id));
+            
+            //Valores y campos
+            String name = request.getParameter("name");
+            String category = request.getParameter("category");
+            String description = request.getParameter("description");
+            int price = Integer.parseInt(request.getParameter("price"));
+            Boolean available = Boolean.parseBoolean(request.getParameter("available"));
+            Part image = request.getPart("image");
+            String archive = image.getSubmittedFileName();
+            if(!archive.trim().equals("")){
+                //Url archivo
+
+                String applicationPath = getServletContext().getRealPath("");
+                String projectPath = applicationPath.substring(0, applicationPath.length()-10);
+
+                String uploadPath = projectPath + "/web/img";
+                
+                int aux_point = archive.lastIndexOf(".");
+                String ext = archive.substring(aux_point, archive.length());
+                String image_url_write = uploadPath+"/id-"+id+ext;
+                String image_url = "img"+"/id-"+id+ext;
+
+                //Verifico la carpeta de guardado de las imagenes
+                File fileUploadDirectory = new File(uploadPath);
+                if (!fileUploadDirectory.exists()) {
+                    fileUploadDirectory.mkdirs();
+                }
+                
+                //Validar aca
+                try {
+                    image.write(image_url_write);
+                    p.editProduct(name, description, price, category, available);
+                    p.setImageUrl(image_url);
+                    System.out.println("funciono");
+                } catch (IOException ioObj) {
+                    System.out.println(ioObj);
+                    System.out.println("Ocurrio un problema");
+                }
+            }else{
+                p.editProduct(name, description, price, category, available);
+            }
+            response.sendRedirect("products");
             
         }else{
             
             view = request.getRequestDispatcher("products.jsp");
+            view.forward(request, response);  
         }
         
-        view.forward(request, response);    
+          
         
     }
     

@@ -17,7 +17,7 @@
     <header>
         <nav class="navbar navbar-expand-md fixed-top header_nav">
             <a class="navbar-brand" href="#">
-                <img src=<c:url value="/img/CookAssistLogo.png"/> width="199" height="44" alt="">
+                <img class="cookassist_logo" src=<c:url value="/img/CookAssistLogo.png"/> alt="">
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar1">
                 <i class="fas fa-bars"></i>
@@ -25,30 +25,36 @@
             <div class="collapse navbar-collapse" id="navbar1">
                 <ul class="navbar-nav mr-auto">
                     <li class="li_nav nav-item active">
-                        <a class="btn_nav btn nav-link" href="<c:url value="/"/>">Inicio</a>
+                        <a class="btn_nav btn nav-link" href=<c:url value="/"/>>Inicio</a>
                     </li>
                     <li class="li_nav nav-item">
-                        <a class="btn_nav btn nav-link" href="<c:url value="/products"/>">Productos</a>
+                        <a class="btn_nav btn nav-link" href=<c:url value="/products"/>>Productos</a>
                     </li>
                     <li class="li_nav nav-item">
-                        <a class="btn_nav btn nav-link" href="<c:url value="/orders"/>">Pedidos</a>
+                        <a class="btn_nav btn nav-link" href=<c:url value="/orders"/>>Pedidos</a>
                     </li>
                     <li class="li_nav nav-item">
-                        <a class="btn_nav btn nav-link" href="<c:url value="/bills"/>">Facturas</a>
+                        <a class="btn_nav btn nav-link" href=<c:url value="/bills"/>>Facturas</a>
                     </li>
                     <li class="li_nav nav-item">
-                        <a class="btn_nav btn nav-link" href="<c:url value="/users"/>">Usuarios</a>
+                        <a class="btn_nav btn nav-link" href=<c:url value="/users"/>>Usuarios</a>
                     </li>
                     <li class="li_nav nav-item">
-                        <a class="btn_nav btn nav-link" href="<c:url value="/chefs"/>">Chefs</a>
+                        <a class="btn_nav btn nav-link" href=<c:url value="/chefs"/>>Chefs</a>
                     </li>
                     <li class="li_nav nav-item">
-                        <a class="btn_nav btn nav-link" href="<c:url value="/ratings"/>">Calificaciones</a>
+                        <a class="btn_nav btn nav-link" href=<c:url value="/ratings"/>>Calificaciones</a>
                     </li>
+                    <c:if test="${empty ListProducts}">
+                    <li class="li_nav nav-item">
+                        <a class="btn_nav btn nav-link" href=<c:url value="/ficticious_data"/>>Agregar datos ficticios</a>
+                    </li>
+                    </c:if>
                 </ul>
+                    
                 <ul class="navbar-nav ml-auto">
                     <li class="li_nav nav-item">
-                        <a class="btn_nav btn nav-link" href="#"><i class="fas fa-user"></i> Usuario</a>
+                        <a class="btn_nav btn nav-link" href=<c:url value="/login"/>>Iniciar sesion</a>
                     </li>
                 </ul>
             </div>
