@@ -5,15 +5,16 @@
             <div class="row">
                 <%@ include file="nav_div_product.jsp" %>
                 <div class="col-md-10 content">
+                    <c:if test= "${!empty product}">
                     <form action="<c:url value="/products?option=new"/>" class="form-horizontal" method="POST" enctype="multipart/form-data">
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label>* Nombre: </label>
-                                <input id="name" class="form-control" type="text" name="name" required>
+                                <input value=${product.getName()} id="name" class="form-control" type="text" name="name" required>
                             </div>
                             <div class="form-group col-md-6">
                                 <label>* Descripción:</label>
-                                <textarea id="description" class="form-control" name="description" required></textarea>
+                                <textarea id="description" class="form-control" name="description" required>${product.getDescription()}</textarea>
                             </div>
                         </div>
                         <div class="row">
@@ -27,7 +28,7 @@
                             </div>
                             <div class="form-group col-md-6">
                                 <label>* Precio</label>
-                                <input id="price" class="form-control"  type="number" name="price" required>
+                                <input value=${product.getPrice()} id="price" class="form-control"  type="number" name="price" required>
                             </div>
                         </div>
                         <div class="row">
@@ -48,6 +49,7 @@
 
 
                     </form>
+                    </c:if>
                 </div>
             </div>
         </div>

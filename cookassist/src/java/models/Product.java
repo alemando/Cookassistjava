@@ -1,9 +1,11 @@
 package models;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Product {
+    public static HashMap<String,String> categories = new HashMap<String,String>();
     public static int cons = 0;
     private int code;
     private String name;
@@ -12,8 +14,8 @@ public class Product {
     private String category;
     private boolean available;
     private String image_url;
-    private  List<Rating> ListRatings = new ArrayList<Rating>(){};
-    private  List<OrderDetail> ListOrderDetails = new ArrayList<OrderDetail>(){};
+    private List<Rating> ListRatings = new ArrayList<Rating>(){};
+    private List<OrderDetail> ListOrderDetails = new ArrayList<OrderDetail>(){};
     
     public Product(int code, String name, String description, int price, 
             String category, String image_url, boolean available){
@@ -114,14 +116,7 @@ public class Product {
     }
     
     public static String category_interpreter(String category){
-        String str;
-        //Remplazar por hashmap
-        if (category.equals("1")){
-            str = "Bebidas";
-        }else{
-            str = "Entradas";
-        }
-        return str;
+        return Product.categories.get(category);
     }
     
     public static String available_interpreter(Boolean available){
@@ -132,6 +127,11 @@ public class Product {
             str = "No disponible";
         }
         return str;
+    }
+    
+    public static Product getProductbyid(HashMap<Integer,Product> products, int code){
+        Product p = products.get(code);
+            return p;
     }
  
 }

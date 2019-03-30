@@ -19,17 +19,23 @@
                                         <th scope="col">Categoria</th>
                                         <th scope="col">Estado</th>
                                         <th scope="col">Ver más</th>
+                                        <th scope="col">Editar</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <c:forEach items="${Products}" var="pro">
+                                    <c:forEach items="${ListProducts}" var="pro">
                                         <tr>
-                                            <td>${pro.getCode()}</td>
-                                            <td>${pro.getName()}</td>
-                                            <td>${pro.getPrice()}</td>
-                                            <td>${pro.category_interpreter(pro.getCategory())}</td>
-                                            <td>${pro.available_interpreter(pro.getAvailable())}</td>
-                                            <td><button>Ver</button></td>
+                                            <td>${pro.value.getCode()}</td>
+                                            <td>${pro.value.getName()}</td>
+                                            <td>${pro.value.getPrice()}</td>
+                                            <td>${pro.value.category_interpreter(pro.value.getCategory())}</td>
+                                            <td>${pro.value.available_interpreter(pro.value.getAvailable())}</td>
+                                            <td>
+                                                <a class="btn btn-primary btn-block" href=<c:url value="/products?id="/>${pro.value.getCode()}>VER</a>
+                                            </td>
+                                            <td>
+                                                <a class="btn btn-danger btn-block" href=<c:url value="/products?option=edit&id="/>${pro.value.getCode()}>Editar</a>
+                                            </td>
                                         </tr>
                                     </c:forEach>
                                 </tbody>

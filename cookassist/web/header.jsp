@@ -8,16 +8,16 @@
     <meta charset="utf-8">
     <title>CookAssist</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel=icon href="<c:url value="/img/favicon.png"/>" sizes="16x16" type="image/png">
-    <link rel="stylesheet" type="text/css" href="<c:url value="/css/bootstrap.min.css"/>">
-    <link rel="stylesheet" type="text/css" href="<c:url value="/css/style.css"/>">
+    <link rel=icon href=<c:url value="/img/favicon.png"/> sizes="16x16" type="image/png">
+    <link rel="stylesheet" type="text/css" href=<c:url value="/css/bootstrap.min.css"/>>
+    <link rel="stylesheet" type="text/css" href=<c:url value="/css/style.css"/>>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-md fixed-top header_nav">
             <a class="navbar-brand" href="#">
-                <img src="<c:url value="/img/CookAssistLogo.png"/>" width="199" height="44" alt="">
+                <img src=<c:url value="/img/CookAssistLogo.png"/> width="199" height="44" alt="">
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar1">
                 <i class="fas fa-bars"></i>
