@@ -1,8 +1,6 @@
 package models;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class Product {
     public static HashMap<String,String> categories = new HashMap<String,String>(){{
@@ -20,8 +18,8 @@ public class Product {
     private String category;
     private boolean available;
     private String image_url;
-    private List<Rating> ListRatings = new ArrayList<Rating>(){};
-    private List<OrderDetail> ListOrderDetails = new ArrayList<OrderDetail>(){};
+    private HashMap<Integer,Rating> ListRatings = new HashMap<Integer,Rating >();
+    private HashMap<String,OrderDetail> ListOrderDetails = new HashMap<String,OrderDetail>();
     
     public Product(int code, String name, String description, int price, 
             String category, String image_url, boolean available){
@@ -97,28 +95,28 @@ public class Product {
         this.available = available; 
     }
 
-    public List<Rating> getListRatings() {
+    public HashMap<Integer,Rating> getListRatings() {
         return ListRatings;
     }
 
-    public void setListRatings(List<Rating> ListRatings) {
+    public void setListRatings(HashMap<Integer, Rating> ListRatings) {
         this.ListRatings = ListRatings;
     }
     
     public void setRating(Rating rating) {
-        this.ListRatings.add(rating);
+        this.ListRatings.put(rating.getCode(), rating);
     }
 
-    public List<OrderDetail> getListOrderDetails() {
+    public HashMap<String,OrderDetail> getListOrderDetails() {
         return ListOrderDetails;
     }
 
-    public void setListOrderDetails(List<OrderDetail> ListOrderDetails) {
+    public void setListOrderDetails(HashMap<String, OrderDetail> ListOrderDetails) {
         this.ListOrderDetails = ListOrderDetails;
     }
     
     public void setOrderDetail(OrderDetail order_detail) {
-        this.ListOrderDetails.add(order_detail);
+        this.ListOrderDetails.put(order_detail.getCode(), order_detail);
     }
     
     public static String category_interpreter(String category){
@@ -138,6 +136,7 @@ public class Product {
     public static Product getProductbyid(HashMap<Integer,Product> products, int code){
         return products.get(code);
     }
+    
     public void editProduct(String name, String description,
             int price, String category, boolean available){
         //Validar

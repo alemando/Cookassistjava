@@ -16,7 +16,7 @@
 <body>
     <header>
         <nav class="navbar navbar-expand-md fixed-top header_nav">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href=<c:url value="/"/>>
                 <img class="cookassist_logo" src=<c:url value="/img/CookAssistLogo.png"/> alt="">
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar1">
@@ -51,12 +51,33 @@
                     </li>
                     </c:if>
                 </ul>
-                    
-                <ul class="navbar-nav ml-auto">
-                    <li class="li_nav nav-item">
-                        <a class="btn_nav btn nav-link" href=<c:url value="/login"/>>Iniciar sesion</a>
-                    </li>
-                </ul>
+                        <c:if test="${!empty user}">
+                            <ul class="navbar-nav ml-auto">
+                                <li class="li_nav nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                      ${user.getName()}
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="userDropdown">
+                                      <a class="dropdown-item" href="#">Mi usuario</a>
+                                      <a class="dropdown-item" href="#">Cerrar sesion</a>
+                                      <div class="dropdown-divider"></div>
+                                      <a class="dropdown-item" href="#">Something else here</a>
+                                    </div>
+                                  </li>
+                                <li class="li_nav nav-item">
+                                    <a class="btn_nav btn nav-link" href=<c:url value="/login"/>>Soy usuario</a>
+                                </li>
+                            </ul>
+                            
+                        </c:if>
+                        <c:if test="${empty user}">
+                            <ul class="navbar-nav ml-auto">
+                                <li class="li_nav nav-item">
+                                    <a class="btn_nav btn nav-link" href=<c:url value="/login"/>>Iniciar sesion</a>
+                                </li>
+                            </ul>
+                        </c:if>
+                
             </div>
         </nav>
     </header>

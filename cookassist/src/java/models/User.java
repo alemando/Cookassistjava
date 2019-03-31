@@ -1,23 +1,22 @@
 package models;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+import java.util.HashMap;
 
 public class User {
     private String type_user;
     private String name;
     private String email;
-    private Date born_date;
+    private String password;
     private boolean status;
-    private  List<Rating> ListRatings = new ArrayList<Rating>(){};
-    private  List<Order> ListOrders = new ArrayList<Order>(){};
-    private  List<Bill> ListBills = new ArrayList<Bill>(){};
+    private HashMap<Integer,Rating> ListRatings = new HashMap<Integer,Rating>();
+    private HashMap<Integer,Order> ListOrders = new HashMap<Integer,Order>();
+    private HashMap<Integer,Bill> ListBills = new HashMap<Integer,Bill>();
     
-    public User(String type_user, String name, String email, Date born_date, boolean status){
+    public User(String type_user, String name, String email, String password, boolean status){
         this.type_user = type_user;
         this.name = name;
         this.email = email;
-        this.born_date = born_date;
+        this.password = password;
         this.status = status;
     }
 
@@ -26,45 +25,45 @@ public class User {
         return type_user;
     }
     
-    public void setTypeUser(String typeuser) {
-        this.type_user = typeuser;
+    public void setTypeUser(String type_user) {
+        this.type_user = type_user;
         
     }
 
-    public List<Rating> getListRatings() {
+    public HashMap<Integer,Rating> getListRatings() {
         return ListRatings;
     }
 
-    public void setListRatings(List<Rating> ListRatings) {
+    public void setListRatings(HashMap<Integer,Rating> ListRatings) {
         this.ListRatings = ListRatings;
     }
     
     public void setRating(Rating rating) {
-        this.ListRatings.add(rating);
+        this.ListRatings.put(rating.getCode(), rating);
     }
 
-    public List<Order> getListOrders() {
+    public HashMap<Integer,Order> getListOrders() {
         return ListOrders;
     }
 
-    public void setListOrders(List<Order> ListOrders) {
+    public void setListOrders(HashMap<Integer,Order> ListOrders) {
         this.ListOrders = ListOrders;
     }
     
     public void setOrder(Order order) {
-        this.ListOrders.add(order);
+        this.ListOrders.put(order.getCode(), order);
     }
 
-    public List<Bill> getListBills() {
+    public HashMap<Integer,Bill> getListBills() {
         return ListBills;
     }
 
-    public void setListBills(List<Bill> ListBills) {
+    public void setListBills(HashMap<Integer,Bill> ListBills) {
         this.ListBills = ListBills;
     }
     
     public void setBill(Bill bill) {
-        this.ListBills.add(bill);
+        this.ListBills.put(bill.getCode(), bill);
     }
     
     public String getName(){
@@ -83,12 +82,12 @@ public class User {
         this.email = email;
     }
     
-    public Date getBornDate(){
-        return born_date;
+    public String getPassword() {
+        return password;
     }
     
-    public void setBornDate(Date born){
-        this.born_date = born;
+    public void setPassword(String password){
+        this.password = password;
     }
     
     public boolean getStatus(){
@@ -97,6 +96,30 @@ public class User {
     
     public void setStatus(boolean status){
         this.status = status;
+    }
+    
+    public static User getUserbyEmail(HashMap<String, User> ListUsers, String email){
+        return ListUsers.get(email);
+    }
+    
+    public static User login(HashMap<String, User> ListUsers, String email, String password){
+        User u = User.getUserbyEmail(ListUsers, email);
+        if (u != null){
+            if(u.getEmail().equals(email) && u.getPassword().equals(password) && u.getStatus()){
+                return u;
+            }
+        }
+        return null;
+    }
+    
+    public static String type_user_interpreter(String type_user){
+        String str;
+        if (type_user.equals("0")){
+            str = "Usuario";
+        }else{
+            str = "Administrador";
+        }
+        return str;
     }
     
 }   
