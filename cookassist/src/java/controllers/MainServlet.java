@@ -48,6 +48,15 @@ public class MainServlet extends HttpServlet  {
         session.setAttribute("user", u);
     }
     
+    public static Boolean userSession(HttpServletRequest request){
+        HttpSession session = request.getSession();
+        User u =(User) session.getAttribute("user");
+        if(u != null){
+            return true;
+        }
+        return false;
+    }
+    
     public static HashMap<String, User> getListUsers(HttpServletRequest request){
         HttpSession session = request.getSession();        
         HashMap<String,User> users = new HashMap<String,User>();
@@ -56,6 +65,43 @@ public class MainServlet extends HttpServlet  {
         }
         return users;
     }
+    
+    public static HashMap<String, User> getListOrders(HttpServletRequest request){
+        HttpSession session = request.getSession();        
+        HashMap<String,User> users = new HashMap<String,User>();
+        if(null != session.getAttribute("ListUsers")){
+            users = (HashMap<String,User>) session.getAttribute("ListUsers");
+        }
+        return users;
+    }
+    
+    public static HashMap<Integer,Object []> getListProductTemp(HttpServletRequest request){
+        HttpSession session = request.getSession();        
+        HashMap<Integer,Object []> product_temp = new HashMap<Integer,Object []>();
+        if(null != session.getAttribute("ListProductTemp")){
+            product_temp = (HashMap<Integer,Object []>) session.getAttribute("ListProductTemp");
+        }
+        return product_temp;
+    }
+    
+    public static void insertOrderProductTemp(HttpServletRequest request, Product p, int quantity){
+        HttpSession session = request.getSession();        
+        HashMap<Integer,Object []> product_temp = new HashMap<Integer,Object []>();
+        if(null != session.getAttribute("ListProductTemp")){
+            product_temp = (HashMap<Integer,Object []>) session.getAttribute("ListProductTemp");
+        }
+        Object [] array = product_temp.get(p.getCode());
+        if(null != array){
+            array[1] = ((int) array[1]) + quantity;
+        }else{
+            array[0] = p;
+            array [1] = quantity;
+            product_temp.put(p.getCode(), array);
+        }
+        session.setAttribute("ListProductTemp", product_temp);
+    }
+    
+    
     
     public static void loadProductCategories(HttpServletRequest request){
         HttpSession session = request.getSession();        

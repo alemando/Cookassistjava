@@ -15,7 +15,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-md fixed-top header_nav">
+        <nav class="navbar navbar-expand-lg fixed-top header_nav">
             <a class="navbar-brand" href=<c:url value="/"/>>
                 <img class="cookassist_logo" src=<c:url value="/img/CookAssistLogo.png"/> alt="">
             </a>
@@ -51,32 +51,50 @@
                     </li>
                     </c:if>
                 </ul>
-                        <c:if test="${!empty user}">
-                            <ul class="navbar-nav ml-auto">
-                                <li class="li_nav nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                      ${user.getName()}
-                                    </a>
-                                    <div class="dropdown-menu" aria-labelledby="userDropdown">
-                                      <a class="dropdown-item" href="#">Mi usuario</a>
-                                      <a class="dropdown-item" href="#">Cerrar sesion</a>
-                                      <div class="dropdown-divider"></div>
-                                      <a class="dropdown-item" href="#">Something else here</a>
-                                    </div>
-                                  </li>
-                                <li class="li_nav nav-item">
-                                    <a class="btn_nav btn nav-link" href=<c:url value="/login"/>>Soy usuario</a>
-                                </li>
-                            </ul>
-                            
-                        </c:if>
-                        <c:if test="${empty user}">
-                            <ul class="navbar-nav ml-auto">
-                                <li class="li_nav nav-item">
-                                    <a class="btn_nav btn nav-link" href=<c:url value="/login"/>>Iniciar sesion</a>
-                                </li>
-                            </ul>
-                        </c:if>
+                <c:if test="${!empty user}">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="li_nav nav-item dropdown">
+                            <a class="btn_nav nav-link dropdown-toggle" href="" id="orderDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Mis pedidos
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="orderDropdown">
+                                <h6 class="dropdown-header">Pedido sin ordenar</h6>
+                                <c:if test="${empty ListOrderTemp}">
+                                    <li class="li_nav nav-item">
+                                        <a class="btn_nav btn nav-link" href=<c:url value="/orders?option=temp_order"/>>pedido</a>
+                                    </li>
+                                </c:if>
+                                <a class="dropdown-item" href=<c:url value="/my_user"/>>1</a>
+                                <div class="dropdown-divider"></div>
+                                <h6 class="dropdown-header">Pedidos pendientes</h6>
+                                <a class="dropdown-item" href=<c:url value="/my_user"/>>2</a>
+                                <div class="dropdown-divider"></div>
+                                <h6 class="dropdown-header">Pedidos por pagar</h6>
+                                <a class="dropdown-item" href=<c:url value="/my_user"/>>3</a>
+                            </div>
+                          </li>
+                        <li class="li_nav nav-item dropdown">
+                            <a class="btn_nav nav-link dropdown-toggle" href=<c:url value="/my_user"/> id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              ${user.getName()}
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href=<c:url value="/my_user"/>>Mi usuario</a>
+                                <div class="dropdown-divider"></div>
+                                <form action=<c:url value="/"/> method="POST">
+                                    <button class="dropdown-item" href="#">Cerrar sesion</button>
+                                </form>
+                            </div>
+                          </li>
+                    </ul>
+
+                </c:if>
+                <c:if test="${empty user}">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="li_nav nav-item">
+                            <a class="btn_nav btn nav-link" href=<c:url value="/login"/>>Iniciar sesion</a>
+                        </li>
+                    </ul>
+                </c:if>
                 
             </div>
         </nav>

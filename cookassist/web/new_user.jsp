@@ -5,11 +5,11 @@
             <div class="row">
                 <div class="col-md-8 offset-2" >
                     <div class="content">
-                        <form action="<c:url value="/register"/>" class="form-horizontal" method="POST" enctype="multipart/form-data">
+                        <form action="<c:url value="/register"/>" class="form-horizontal" method="POST">
                             <div class="row">
                                 <div class="form-group col-md-12">
                                     <label>* Email: </label>
-                                    <input id="name" class="form-control" type="email" name="name" required>
+                                    <input id="email" class="form-control" type="email" name="email" required>
                                 </div>
                             </div>
                             <div class="row">
@@ -30,8 +30,6 @@
                                     <button class="btn btn-lg btn-primary btn-block btn_submit">Enviar</button>
                                 </div>
                             </div>
-
-
                         </form>
                     </div>
                 </div>

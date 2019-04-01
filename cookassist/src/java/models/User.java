@@ -1,5 +1,4 @@
 package models;
-import java.util.Date;
 import java.util.HashMap;
 
 public class User {
@@ -103,6 +102,7 @@ public class User {
     }
     
     public static User login(HashMap<String, User> ListUsers, String email, String password){
+        System.out.println(email);
         User u = User.getUserbyEmail(ListUsers, email);
         if (u != null){
             if(u.getEmail().equals(email) && u.getPassword().equals(password) && u.getStatus()){
@@ -118,6 +118,16 @@ public class User {
             str = "Usuario";
         }else{
             str = "Administrador";
+        }
+        return str;
+    }
+    
+    public static String status_interpreter(Boolean available){
+        String str;
+        if (available){
+            str = "Activo";
+        }else{
+            str = "Inactivo";
         }
         return str;
     }

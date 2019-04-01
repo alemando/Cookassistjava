@@ -27,8 +27,16 @@ public class login extends MainServlet {
         HashMap<String,User> users = MainServlet.getListUsers(request);
         User u = User.login(users, email, password);
         MainServlet.setUser(request, u);
-        RequestDispatcher view = request.getRequestDispatcher("login.jsp");
-        view.forward(request, response);        
+        
+        //verificaciones
+        
+        if (MainServlet.userSession(request)){
+            response.sendRedirect("");
+        }else{
+            RequestDispatcher view = request.getRequestDispatcher("login.jsp");
+            view.forward(request, response);        
+        }
+        
     }
 
 }

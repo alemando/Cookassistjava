@@ -1,20 +1,24 @@
 package models;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 
 public class Order {
+    public static int cons = 0;
     private int code;
     private String description;
     private User user;
     private Chef chef;
     private Bill bill;
-    private  List<OrderDetail> ListOrderDetails = new ArrayList<OrderDetail>(){};
-    private  List<Rating> ListRatings = new ArrayList<Rating>(){};
+    private HashMap<Integer,Rating> ListRatings = new HashMap<Integer,Rating >();
+    private HashMap<String,OrderDetail> ListOrderDetails = new HashMap<String,OrderDetail>();
     
-    
-    public Order(int code, String description, List<OrderDetail> ListOrderDetails, User user){
-        this.code = code;
+    public Order(int code, String description, User user, HashMap<String,OrderDetail> ListOrderDetails){
+        if(code == 0){
+            Product.cons ++;
+            this.code = Product.cons;
+        }else{
+            this.code = code;
+        }
         this.description = description;
         this.user = user;
         this.ListOrderDetails = ListOrderDetails;
@@ -36,29 +40,30 @@ public class Order {
         this.description = description;
     }
 
-    public List<OrderDetail> getListOrderDetails() {
-        return ListOrderDetails;
-    }
-
-    public void setListOrderDetails(List<OrderDetail> ListOrderDetails) {
-        this.ListOrderDetails = ListOrderDetails;
-    }
-    
-    public void setOrderDetail(OrderDetail order_detail) {
-        this.ListOrderDetails.add(order_detail);
-    }
-
-    public List<Rating> getListRatings() {
+    public HashMap<Integer,Rating> getListRatings() {
         return ListRatings;
     }
 
-    public void setListRatings(List<Rating> ListRatings) {
+    public void setListRatings(HashMap<Integer, Rating> ListRatings) {
         this.ListRatings = ListRatings;
     }
     
     public void setRating(Rating rating) {
-        this.ListRatings.add(rating);
+        this.ListRatings.put(rating.getCode(), rating);
     }
+
+    public HashMap<String,OrderDetail> getListOrderDetails() {
+        return ListOrderDetails;
+    }
+
+    public void setListOrderDetails(HashMap<String, OrderDetail> ListOrderDetails) {
+        this.ListOrderDetails = ListOrderDetails;
+    }
+    
+    public void setOrderDetail(OrderDetail order_detail) {
+        this.ListOrderDetails.put(order_detail.getCode(), order_detail);
+    }
+    
     
     public User getUser(){
         return user;

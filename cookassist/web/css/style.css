@@ -11,6 +11,7 @@ body{
 
 h2{
     padding: 10px;
+    color: white;
 }
 
 .header_nav{
@@ -31,7 +32,12 @@ aside{
 }
 .btn_nav:hover{
     background-color: #686767;
+    color: white;
 }
+.btn_nav{
+    color: white;;
+}
+
 
 .li_nav{
     padding: 0;

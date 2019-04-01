@@ -21,7 +21,7 @@ public class ficticious_data extends MainServlet {
         MainServlet.insertProduct(request,new Product(0, "Café", "Delicioso café colombiano", 3000, "1", "img/id-4.jpg", true));
         MainServlet.insertProduct(request,new Product(0, "Sopa de pollo", "Sopa de pollo, con verduras", 8000, "3", "img/id-5.jpg", true));
         MainServlet.insertProduct(request,new Product(0, "Papitas fritas", "Papitas a la francesa", 5000, "3", "img/id-6.jpg", true));
-        
+        MainServlet.insertProduct(request,new Product(0, "Omega pepino", "Delicioso, suculento pepino", 0, "3", "img/id-7.jpg", true));
         
         //Usuarios
         MainServlet.insertUser(request,new User("1", "Alejandro", "a@p.com", "12345", true));

@@ -1,6 +1,6 @@
 <div id="sidebar" class="col-md-2">
     <div id="nav_div">
-        <h4>Utilidades</h4>
+        <h4>Opciones</h4>
         <ul class="link-list">
             <li>
                 <a href=<c:url value="/products"/>>Menu</a>
