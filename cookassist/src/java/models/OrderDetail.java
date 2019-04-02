@@ -7,7 +7,7 @@ public class OrderDetail {
     private Product product;
     private int price;
 
-    public OrderDetail(String code, int quantity, Order order, Product product, int price){
+    public OrderDetail(String code, int quantity, int price, Order order, Product product){
         this.code = code;
         this.quantity = quantity;
         this.order = order;
@@ -45,6 +45,7 @@ public class OrderDetail {
     
     public void setProduct(Product product){
         this.product = product;
+        product.setOrderDetail(this);
     }
     
     public int getPrice() {

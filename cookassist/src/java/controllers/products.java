@@ -29,7 +29,7 @@ public class products extends MainServlet {
                 //Debo verificar que me manden un numero
                 HashMap<Integer,Product> products = MainServlet.getListProducts(request);
                 //verificar que no sea null
-                Product pro = Product.getProductbyid(products, Integer.parseInt(id));
+                Product pro = Product.getProductbycode(products, Integer.parseInt(id));
                 request.setAttribute("product", pro);
                 view = request.getRequestDispatcher("selected_product.jsp");
             }
@@ -43,7 +43,7 @@ public class products extends MainServlet {
                 //Debo verificar que me manden un numero
                 HashMap<Integer,Product> products = MainServlet.getListProducts(request);
                 //verificar que no sea null
-                Product pro = Product.getProductbyid(products, Integer.parseInt(id));
+                Product pro = Product.getProductbycode(products, Integer.parseInt(id));
                 request.setAttribute("product", pro);
                 view = request.getRequestDispatcher("edit_product.jsp");
             }
@@ -106,7 +106,7 @@ public class products extends MainServlet {
             
             //deberia validar que id sea numerico y que el hashmap funcione
             HashMap<Integer,Product> products = MainServlet.getListProducts(request);
-            Product p = Product.getProductbyid(products, Integer.parseInt(id));
+            Product p = Product.getProductbycode(products, Integer.parseInt(id));
             
             //Valores y campos
             String name = request.getParameter("name");

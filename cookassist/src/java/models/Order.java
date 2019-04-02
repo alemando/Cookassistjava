@@ -1,6 +1,7 @@
 package models;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class Order {
     public static int cons = 0;
@@ -12,16 +13,23 @@ public class Order {
     private HashMap<Integer,Rating> ListRatings = new HashMap<Integer,Rating >();
     private HashMap<String,OrderDetail> ListOrderDetails = new HashMap<String,OrderDetail>();
     
-    public Order(int code, String description, User user, HashMap<String,OrderDetail> ListOrderDetails){
+    public Order(int code, String description, User user, HashMap<Integer,Object []> ListProducts){
         if(code == 0){
-            Product.cons ++;
-            this.code = Product.cons;
+            Order.cons ++;
+            this.code = Order.cons;
         }else{
             this.code = code;
         }
         this.description = description;
         this.user = user;
-        this.ListOrderDetails = ListOrderDetails;
+        user.setOrder(this);
+        for (Map.Entry<Integer, Object[]> entry : ListProducts.entrySet()) {
+            String id = this.getCode()+"-"+entry.getKey();
+            int quantity = (int) entry.getValue()[1];
+            Product p = (Product) entry.getValue()[0];
+            OrderDetail od = new OrderDetail(id, quantity, p.getPrice(), this, p);
+            this.setOrderDetail(od);
+        }
     }
     
     public int getCode(){
@@ -87,5 +95,9 @@ public class Order {
     
     public void setBill(Bill bill){
         this.bill = bill;
+    }
+    
+    public static Order getOrderbycode(HashMap<Integer,Order> orders, int code){
+        return orders.get(code);
     }
 }

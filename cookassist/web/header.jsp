@@ -59,12 +59,9 @@
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="orderDropdown">
                                 <h6 class="dropdown-header">Pedido sin ordenar</h6>
-                                <c:if test="${empty ListOrderTemp}">
-                                    <li class="li_nav nav-item">
-                                        <a class="btn_nav btn nav-link" href=<c:url value="/orders?option=temp_order"/>>pedido</a>
-                                    </li>
+                                <c:if test="${!empty ListProductTemp}">
+                                    <a class="dropdown-item" href=<c:url value="/orders?option=new"/>>Mi pedido</a>
                                 </c:if>
-                                <a class="dropdown-item" href=<c:url value="/my_user"/>>1</a>
                                 <div class="dropdown-divider"></div>
                                 <h6 class="dropdown-header">Pedidos pendientes</h6>
                                 <a class="dropdown-item" href=<c:url value="/my_user"/>>2</a>

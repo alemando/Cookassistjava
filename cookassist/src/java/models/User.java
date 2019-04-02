@@ -102,7 +102,6 @@ public class User {
     }
     
     public static User login(HashMap<String, User> ListUsers, String email, String password){
-        System.out.println(email);
         User u = User.getUserbyEmail(ListUsers, email);
         if (u != null){
             if(u.getEmail().equals(email) && u.getPassword().equals(password) && u.getStatus()){

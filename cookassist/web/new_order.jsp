@@ -6,54 +6,51 @@
                 <%@ include file="nav_div_product.jsp" %>
                 <div class="col-md-10">
                     <div class="content">
-                        <form action="<c:url value="/products?option=new"/>" class="form-horizontal" method="POST" enctype="multipart/form-data">
-                            <div class="row">
-                                <div class="content table-responsive">
-                                    <table class="table table-bordered table-hover">
-                                        <thead class="thead-dark">
+                        <form id="order"action="<c:url value="/orders?option=new"/>" class="form-horizontal" method="POST"></form>
+                        <div class="row">
+                            <div class="content table-responsive">
+                                <table class="table table-bordered table-hover">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Nombre</th>
+                                            <th scope="col">Precio</th>
+                                            <th scope="col">Cantidad</th>
+                                            <th scope="col">Eliminar</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <c:set var="count" value="0" scope="page" />
+                                        <c:forEach items="${ListProductTemp}" var="pro">
+                                            <form id="remove-${pro.value[0].getCode()}"action="<c:url value="/orders?option=remove&id=${pro.value[0].getCode()}"/>" class="form-horizontal" method="POST"></form>
                                             <tr>
-                                                <th scope="col">#</th>
-                                                <th scope="col">Nombre</th>
-                                                <th scope="col">Precio</th>
-                                                <th scope="col">Cantidad</th>
-                                                <th scope="col">Eliminar</th>
+                                                <c:set var="count" value="${count + 1}" scope="page"/>
+                                                <td><c:out value = "${count}"/></td>
+                                                <td>${pro.value[0].getName()}</td>
+                                                <td>${pro.value[0].getPrice()}</td>
+                                                <td>${pro.value[1]}</td>
+                                                <td>
+                                                    <button class="btn btn-danger btn-block btn_submit" form="remove-${pro.value[0].getCode()}">X</button>
+                                                </td>
                                             </tr>
-                                        </thead>
-                                        <tbody>
-                                            <c:forEach items="${ListProductTemp}" var="pro">
-                                                <tr>
-                                                    <td></td>
-                                                    <td>${pro.value.getName()}</td>
-                                                    <td>${pro.value.getPrice()}</td>
-                                                    <td>${pro.value.category_interpreter(pro.value.getCategory())}</td>
-                                                    <td>${pro.value.available_interpreter(pro.value.getAvailable())}</td>
-                                                    <td>
-                                                        <a class="btn btn-primary btn-block" href=<c:url value="/products?id="/>${pro.value.getCode()}>VER</a>
-                                                    </td>
-                                                    <td>
-                                                        <a class="btn btn-danger btn-block" href=<c:url value="/products?option=edit&id="/>${pro.value.getCode()}>Editar</a>
-                                                    </td>
-                                                </tr>
-                                            </c:forEach>
-                                        </tbody>
-                                    </table>
-                                </div>
+                                        </c:forEach>
+                                    </tbody>
+                                </table>
                             </div>
-                            
-                            <div class="row">
-                                <div class="form-group col-md-12">
-                                    <label>Descripción:</label>
-                                    <textarea id="description" class="form-control" name="description"></textarea>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md">
-                                    <button class="btn btn-lg btn-primary btn-block btn_submit">Ordernar</button>
-                                </div>
-                            </div>
+                        </div>
 
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <label>Descripción:</label>
+                                <textarea id="description" class="form-control" form="order" name="description"></textarea>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md">
+                                <button class="btn btn-lg btn-primary btn-block btn_submit" form="order">Ordenar</button>
+                            </div>
+                        </div>
 
-                        </form>
                     </div>
                 </div>
             </div>

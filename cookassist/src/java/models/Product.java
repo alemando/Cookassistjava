@@ -133,7 +133,7 @@ public class Product {
         return str;
     }
     
-    public static Product getProductbyid(HashMap<Integer,Product> products, int code){
+    public static Product getProductbycode(HashMap<Integer,Product> products, int code){
         return products.get(code);
     }
     

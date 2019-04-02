@@ -31,7 +31,8 @@ public class Index extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {        
-            MainServlet.setUser(request, null);           
+            MainServlet.setUser(request, null);
+            MainServlet.setListProductTemp(request, null);
             RequestDispatcher view = request.getRequestDispatcher("index.jsp");
             view.forward(request, response);
     }

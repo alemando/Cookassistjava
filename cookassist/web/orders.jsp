@@ -3,36 +3,43 @@
     <section>
         <div class="container-fluid">
             <div class="row">
-                <div id="sidebar" class="col-md-2">
-                    <div id="nav_div">
-                        <h4>Utilities</h4>
-                        <ul class="link-list">
-                            <li>
-                                <a href="#">Link 1</a>
-                            </li>
-                            <li>
-                                <a href="#">Link 2</a>
-                            </li>
-                            <li>
-                                <a href="#">Link 3</a>
-                            </li>
-                            <li>
-                                <a href="#">Link 4</a>
-                            </li>
-                            <li>
-                                <a href="#">Link 5</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-md-10">
+                <div class="col-md-12">
                     <div class="content">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate minus quaerat quisquam quae voluptas repellat vitae veritatis temporibus nisi magnam eum molestias, distinctio laboriosam debitis officiis nam totam nesciunt quis?
+                        <div class="row">
+                            <h2>Pedidos</h2>
+                        </div>
+                        <div class="row">
+                            <div class="content table-responsive">
+                                <table class="table table-bordered table-hover">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th scope="col">Codigo</th>
+                                            <th scope="col">Usuario</th>
+                                            <th scope="col">Chef</th>
+                                            <th scope="col">Factura</th>
+                                            <th scope="col">Ver</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <c:forEach items="${ListOrders}" var="order">
+                                            <tr>
+                                                <td>${order.value.getCode()}</td>
+                                                <td>${order.value.getUser().getEmail()}</td>
+                                                <td>${order.value.getChef()}</td>
+                                                <td>${order.value.getBill()}</td>
+                                                <td>
+                                                    <a class="btn btn-lg btn-primary btn-block" href=<c:url value="/orders?id="/>${order.value.getCode()}>VER</a>
+                                                </td>
+                                            </tr>
+                                        </c:forEach>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 </main>
-    
 <%@ include file="footer.jsp" %>

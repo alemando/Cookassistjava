@@ -4,6 +4,7 @@ import java.util.HashMap;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import models.Order;
 import models.Product;
 import models.User;
 import util.Messages;
@@ -66,13 +67,29 @@ public class MainServlet extends HttpServlet  {
         return users;
     }
     
-    public static HashMap<String, User> getListOrders(HttpServletRequest request){
+    public static HashMap<Integer, Order> getListOrders(HttpServletRequest request){
         HttpSession session = request.getSession();        
-        HashMap<String,User> users = new HashMap<String,User>();
-        if(null != session.getAttribute("ListUsers")){
-            users = (HashMap<String,User>) session.getAttribute("ListUsers");
+        HashMap<Integer,Order> orders = new HashMap<Integer,Order>();
+        if(null != session.getAttribute("ListOrders")){
+            orders = (HashMap<Integer,Order>) session.getAttribute("ListOrders");
         }
-        return users;
+        return orders;
+    }
+    
+    public static void insertOrder(HttpServletRequest request, Order o){
+        HttpSession session = request.getSession();        
+        HashMap<Integer,Order> orders = new HashMap<Integer,Order>();
+        if(null != session.getAttribute("ListOrders")){
+            orders = (HashMap<Integer,Order>) session.getAttribute("ListOrders");
+        }
+        orders.put(o.getCode(), o);
+        session.setAttribute("ListOrders", orders);
+    }
+    
+    public static User getUser(HttpServletRequest request){
+        HttpSession session = request.getSession();        
+        User user = (User)session.getAttribute("user");
+        return user;
     }
     
     public static HashMap<Integer,Object []> getListProductTemp(HttpServletRequest request){
@@ -84,20 +101,29 @@ public class MainServlet extends HttpServlet  {
         return product_temp;
     }
     
+    public static void setListProductTemp(HttpServletRequest request, HashMap<Integer,Object []> products){
+        HttpSession session = request.getSession();        
+        session.setAttribute("ListProductTemp", products);
+    }
+    
+    public static void removeItemListProductTemp(HttpServletRequest request, Product p){
+        HttpSession session = request.getSession();        
+        HashMap<Integer,Object []> product_temp = (HashMap<Integer,Object []>) session.getAttribute("ListProductTemp");
+        product_temp.remove(p.getCode());
+    }
+    
     public static void insertOrderProductTemp(HttpServletRequest request, Product p, int quantity){
         HttpSession session = request.getSession();        
         HashMap<Integer,Object []> product_temp = new HashMap<Integer,Object []>();
         if(null != session.getAttribute("ListProductTemp")){
             product_temp = (HashMap<Integer,Object []>) session.getAttribute("ListProductTemp");
         }
-        Object [] array = product_temp.get(p.getCode());
-        if(null != array){
-            array[1] = ((int) array[1]) + quantity;
-        }else{
-            array[0] = p;
-            array [1] = quantity;
-            product_temp.put(p.getCode(), array);
-        }
+        
+        Object [] array = new Object[2];
+        array[0] = p;
+        array [1] = quantity;
+        product_temp.put(p.getCode(), array);
+        
         session.setAttribute("ListProductTemp", product_temp);
     }
     
