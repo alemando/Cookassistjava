@@ -20,11 +20,13 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <c:set var="total" value="${total=0}" scope="page"/>
                                         <c:set var="count" value="0" scope="page" />
                                         <c:forEach items="${ListProductTemp}" var="pro">
                                             <form id="remove-${pro.value[0].getCode()}"action="<c:url value="/orders?option=remove&id=${pro.value[0].getCode()}"/>" class="form-horizontal" method="POST"></form>
                                             <tr>
                                                 <c:set var="count" value="${count + 1}" scope="page"/>
+                                                <c:set var="total" value="${total + pro.value[0].getPrice()*pro.value[1]}" scope="page"/>
                                                 <td><c:out value = "${count}"/></td>
                                                 <td>${pro.value[0].getName()}</td>
                                                 <td>${pro.value[0].getPrice()}</td>
@@ -34,6 +36,12 @@
                                                 </td>
                                             </tr>
                                         </c:forEach>
+                                            <tr>
+                                                
+                                                <td>Total</td>
+                                                <td colspan="4">$ <c:out value = "${total}"/> pesos</td>
+                                                
+                                            </tr>
                                     </tbody>
                                 </table>
                             </div>

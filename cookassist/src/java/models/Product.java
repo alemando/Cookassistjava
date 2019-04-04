@@ -18,7 +18,6 @@ public class Product {
     private String category;
     private boolean available;
     private String image_url;
-    private HashMap<Integer,Rating> ListRatings = new HashMap<Integer,Rating >();
     private HashMap<String,OrderDetail> ListOrderDetails = new HashMap<String,OrderDetail>();
     
     public Product(int code, String name, String description, int price, 
@@ -93,18 +92,6 @@ public class Product {
     
     public void setAvailable(boolean available){
         this.available = available; 
-    }
-
-    public HashMap<Integer,Rating> getListRatings() {
-        return ListRatings;
-    }
-
-    public void setListRatings(HashMap<Integer, Rating> ListRatings) {
-        this.ListRatings = ListRatings;
-    }
-    
-    public void setRating(Rating rating) {
-        this.ListRatings.put(rating.getCode(), rating);
     }
 
     public HashMap<String,OrderDetail> getListOrderDetails() {

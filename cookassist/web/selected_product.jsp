@@ -18,10 +18,12 @@
                                         <h5 class="card-title">${product.getName()}</h5>
                                         <p class="card-text">Codigo: ${product.getCode()}</p>
                                         <p class="card-text">Categoria: ${product.category_interpreter(product.getCategory())}</p>
+                                        <c:if test="${!empty user and user.getAdmin()}">
                                         <p class="card-text">Estado: ${product.available_interpreter(product.getAvailable())}</p>
+                                        </c:if>
                                         <p class="card-text">Descripción: ${product.getDescription()}</p>
                                         <p class="card-text">Precio: $ ${product.getPrice()} pesos</p>
-                                        <c:if test="${!empty user}">
+                                        <c:if test="${!empty user and product.getAvailable()}">
                                         <button class="btn btn-lg btn-warning btn-block" type="button" data-toggle="collapse" data-target="#collapseid-${product.getCode()}" aria-expanded="false" aria-controls="collapseid-${product.getCode()}">Ordenar</button>
                                         <div class="collapse" id="collapseid-${product.getCode()}">
                                             <div class="card card-body">

@@ -4,6 +4,7 @@ import java.util.HashMap;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import models.Chef;
 import models.Order;
 import models.Product;
 import models.User;
@@ -44,9 +45,39 @@ public class MainServlet extends HttpServlet  {
         session.setAttribute("ListUsers", users);
     }
     
+    public static void insertChef(HttpServletRequest request, Chef c){
+        MainServlet.insertUser(request, c);
+        HttpSession session = request.getSession();        
+        HashMap<String,Chef> chefs = new HashMap<String,Chef>();
+        if(null != session.getAttribute("ListChefs")){
+            chefs = (HashMap<String,Chef>) session.getAttribute("ListChefs");
+        }
+        chefs.put(c.getEmail(), c);
+        session.setAttribute("ListChefs", chefs);
+    }
+    
+    public static HashMap<String, Chef> getListChefs(HttpServletRequest request){
+        HttpSession session = request.getSession();        
+        HashMap<String,Chef> chefs = new HashMap<String,Chef>();
+        if(null != session.getAttribute("ListChefs")){
+            chefs = (HashMap<String,Chef>) session.getAttribute("ListChefs");
+        }
+        return chefs;
+    }
+    
     public static void setUser(HttpServletRequest request, User u){
         HttpSession session = request.getSession();
         session.setAttribute("user", u);
+    }
+    
+    public static void setChef(HttpServletRequest request, boolean status_chef){
+        HttpSession session = request.getSession();
+        session.setAttribute("chef", status_chef);
+    }
+    
+    public static boolean getChef(HttpServletRequest request){
+        HttpSession session = request.getSession();
+        return (boolean) session.getAttribute("chef");
     }
     
     public static Boolean userSession(HttpServletRequest request){

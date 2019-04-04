@@ -31,7 +31,9 @@ public class login extends MainServlet {
         //verificaciones
         
         if (MainServlet.userSession(request)){
+            MainServlet.setChef(request, false);
             response.sendRedirect("");
+            
         }else{
             RequestDispatcher view = request.getRequestDispatcher("login.jsp");
             view.forward(request, response);        

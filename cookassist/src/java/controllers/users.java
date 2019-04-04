@@ -4,9 +4,9 @@ import java.util.HashMap;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import models.Chef;
 import models.User;
 
 @WebServlet(urlPatterns = {"/users"})
@@ -16,7 +16,18 @@ public class users extends MainServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        RequestDispatcher view = request.getRequestDispatcher("users.jsp");
+        User u = MainServlet.getUser(request);
+        RequestDispatcher view;
+        if(u != null){
+            if(u.getAdmin()){
+                view = request.getRequestDispatcher("users.jsp");
+            }else{
+                view = request.getRequestDispatcher("error.jsp");
+            }
+        }else{
+            view = request.getRequestDispatcher("error.jsp");
+        }
+        
         view.forward(request, response);        
     }
     
@@ -31,12 +42,11 @@ public class users extends MainServlet {
         if(u != null){
             if(option.equals("status")){
                 u.setStatus(!u.getStatus());
-            }else if(option.equals("type")){
-                if (u.getTypeUser().equals("0")) {
-                    u.setTypeUser("1");
-                }else{
-                    u.setTypeUser("0");
+                if(!u.getStatus()){
+                    ((Chef) u).setStatusChef(false);
                 }
+            }else if(option.equals("type")){
+                u.setAdmin(!u.getAdmin());
             }
         }
         

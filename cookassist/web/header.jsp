@@ -30,21 +30,22 @@
                     <li class="li_nav nav-item">
                         <a class="btn_nav btn nav-link" href=<c:url value="/products"/>>Productos</a>
                     </li>
-                    <li class="li_nav nav-item">
-                        <a class="btn_nav btn nav-link" href=<c:url value="/orders"/>>Pedidos</a>
-                    </li>
-                    <li class="li_nav nav-item">
-                        <a class="btn_nav btn nav-link" href=<c:url value="/bills"/>>Facturas</a>
-                    </li>
-                    <li class="li_nav nav-item">
-                        <a class="btn_nav btn nav-link" href=<c:url value="/users"/>>Usuarios</a>
-                    </li>
-                    <li class="li_nav nav-item">
-                        <a class="btn_nav btn nav-link" href=<c:url value="/chefs"/>>Chefs</a>
-                    </li>
-                    <li class="li_nav nav-item">
-                        <a class="btn_nav btn nav-link" href=<c:url value="/ratings"/>>Calificaciones</a>
-                    </li>
+                    <c:if test="${!empty user}">
+                        <li class="li_nav nav-item">
+                            <a class="btn_nav btn nav-link" href=<c:url value="/orders"/>>Pedidos</a>
+                        </li>
+                        <li class="li_nav nav-item">
+                            <a class="btn_nav btn nav-link" href=<c:url value="/bills"/>>Facturas</a>
+                        </li>
+                        <c:if test="${user.getAdmin()}">
+                            <li class="li_nav nav-item">
+                                <a class="btn_nav btn nav-link" href=<c:url value="/users"/>>Usuarios</a>
+                            </li>
+                            <li class="li_nav nav-item">
+                                <a class="btn_nav btn nav-link" href=<c:url value="/chefs"/>>Chefs</a>
+                            </li>
+                        </c:if>
+                    </c:if>
                     <c:if test="${empty ListProducts}">
                     <li class="li_nav nav-item">
                         <a class="btn_nav btn nav-link" href=<c:url value="/ficticious_data"/>>Agregar datos ficticios</a>
@@ -58,24 +59,33 @@
                                 Mis pedidos
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="orderDropdown">
-                                <h6 class="dropdown-header">Pedido sin ordenar</h6>
+                                <h6 class="dropdown-header">Pedido actual</h6>
                                 <c:if test="${!empty ListProductTemp}">
-                                    <a class="dropdown-item" href=<c:url value="/orders?option=new"/>>Mi pedido</a>
+                                    <a class="dropdown-itListProductTempem" href=<c:url value="/orders?option=new"/>>Mi pedido</a>
                                 </c:if>
                                 <div class="dropdown-divider"></div>
-                                <h6 class="dropdown-header">Pedidos pendientes</h6>
-                                <a class="dropdown-item" href=<c:url value="/my_user"/>>2</a>
-                                <div class="dropdown-divider"></div>
-                                <h6 class="dropdown-header">Pedidos por pagar</h6>
-                                <a class="dropdown-item" href=<c:url value="/my_user"/>>3</a>
+                                <h6 class="dropdown-header">Pedidos en proceso</h6>
+                                <c:forEach items="${user.getListOrders()}" var="order">
+                                    <a class="dropdown-item" href=<c:url value="/orders?id="/>${order.value.getCode()}>Pedido # ${order.value.getCode()}</a>
+                                </c:forEach>
                             </div>
                           </li>
                         <li class="li_nav nav-item dropdown">
                             <a class="btn_nav nav-link dropdown-toggle" href=<c:url value="/my_user"/> id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              ${user.getName()}
+                                <c:if test="${chef}">Chef</c:if>
+                                ${user.getName()}
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
                                 <a class="dropdown-item" href=<c:url value="/my_user"/>>Mi usuario</a>
+                                
+                                <c:if test="${user.getClass().name eq 'models.Chef'}">
+                                    <c:if test="${user.getStatusChef()}">
+                                        <div class="dropdown-divider"></div>
+                                        <form action=<c:url value="/?option=chef"/> method="POST">
+                                            <button class="dropdown-item" href="#">Cambiar forma de inicio</button>
+                                        </form>
+                                    </c:if>
+                                </c:if>
                                 <div class="dropdown-divider"></div>
                                 <form action=<c:url value="/"/> method="POST">
                                     <button class="dropdown-item" href="#">Cerrar sesion</button>

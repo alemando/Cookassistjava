@@ -14,8 +14,9 @@
                                 <div class="card d-block card_select">
                                     <div class="card-body">
                                         <h5 class="card-title">Codigo: ${order.getCode()}</h5>
+                                        <p class="card-text">${order.ready_interpreter(order.getReady())}</p>
                                         <p class="card-text">Usuario: ${order.getUser().getName()}</p>
-                                        <p class="card-text">Chef: ${order.getChef()}</p>
+                                        <p class="card-text">Chef: ${order.getChef().getEmail()}</p>
                                         <p class="card-text">Factura: ${order.getBill()}</p>
                                         <p class="card-text">Descripción: ${order.getDescription()}</p>
                                         <button class="btn btn-lg btn-warning btn-block" type="button" data-toggle="collapse" data-target="#collapseid" aria-expanded="false" aria-controls="collapseid">Eliminar</button>

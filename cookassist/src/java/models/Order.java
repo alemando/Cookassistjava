@@ -10,10 +10,10 @@ public class Order {
     private User user;
     private Chef chef;
     private Bill bill;
-    private HashMap<Integer,Rating> ListRatings = new HashMap<Integer,Rating >();
+    private boolean ready;
     private HashMap<String,OrderDetail> ListOrderDetails = new HashMap<String,OrderDetail>();
     
-    public Order(int code, String description, User user, HashMap<Integer,Object []> ListProducts){
+    public Order(int code, String description, User user, HashMap<Integer,Object []> ListProducts, boolean ready){
         if(code == 0){
             Order.cons ++;
             this.code = Order.cons;
@@ -22,6 +22,7 @@ public class Order {
         }
         this.description = description;
         this.user = user;
+        this.ready = ready;
         user.setOrder(this);
         for (Map.Entry<Integer, Object[]> entry : ListProducts.entrySet()) {
             String id = this.getCode()+"-"+entry.getKey();
@@ -46,18 +47,6 @@ public class Order {
     
     public void setDescription(String description){
         this.description = description;
-    }
-
-    public HashMap<Integer,Rating> getListRatings() {
-        return ListRatings;
-    }
-
-    public void setListRatings(HashMap<Integer, Rating> ListRatings) {
-        this.ListRatings = ListRatings;
-    }
-    
-    public void setRating(Rating rating) {
-        this.ListRatings.put(rating.getCode(), rating);
     }
 
     public HashMap<String,OrderDetail> getListOrderDetails() {
@@ -87,6 +76,7 @@ public class Order {
     
     public void setChef(Chef chef){
         this.chef = chef;
+        chef.setOrderChef(this);
     }
     
     public Bill getBill(){
@@ -97,7 +87,26 @@ public class Order {
         this.bill = bill;
     }
     
+    public boolean getReady() {
+        return ready;
+    }
+
+    public void setReady(boolean ready) {
+        this.ready = ready;
+    }
+    
     public static Order getOrderbycode(HashMap<Integer,Order> orders, int code){
         return orders.get(code);
     }
+    
+    public static String ready_interpreter(Boolean ready){
+        String str;
+        if (ready){
+            str = "Terminado";
+        }else{
+            str = "Sin terminar";
+        }
+        return str;
+    }
+    
 }

@@ -22,17 +22,17 @@
                                     <tbody>
                                         <c:forEach items="${ListUsers}" var="user">
                                             <tr>
-                                                <c:if test ="${user.value.getTypeUser() eq 0}">
+                                                <c:if test ="${user.value.getAdmin()}">
                                                 <td>
                                                     <form action=<c:url value="/users?option=type&email="/>${user.value.getEmail()} method="POST">
-                                                        <button class="btn btn-lg btn-primary btn-block btn_submit">${user.value.type_user_interpreter(user.value.getTypeUser())}</button>
+                                                        <button class="btn btn-lg btn-primary btn-block btn_submit">${user.value.admin_interpreter(user.value.getAdmin())}</button>
                                                     </form>
                                                 </td>
                                                 </c:if>
-                                                <c:if test ="${user.value.getTypeUser() eq 1}">
+                                                <c:if test ="${!user.value.getAdmin()}">
                                                     <td>
                                                         <form action=<c:url value="/users?option=type&email="/>${user.value.getEmail()} method="POST">
-                                                            <button class="btn btn-lg btn-warning btn-block btn_submit">${user.value.type_user_interpreter(user.value.getTypeUser())}</button>
+                                                            <button class="btn btn-lg btn-warning btn-block btn_submit">${user.value.admin_interpreter(user.value.getAdmin())}</button>
                                                         </form>
                                                     </td>
                                                 </c:if>

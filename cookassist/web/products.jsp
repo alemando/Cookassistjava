@@ -12,6 +12,7 @@
                         <div class="row">
                             <div class="card-columns" style="padding: 10px">
                                 <c:forEach items="${ListProducts}" var="pro">
+                                    <c:if test="${pro.value.getAvailable()}">
                                     <div class="card">
                                         <img src=${pro.value.getImageUrl()} class="card-img-top" alt="...">
                                     <div class="card-body">
@@ -46,6 +47,7 @@
                                         </c:if>
                                     </div>
                                   </div>
+                                </c:if>
                                 </c:forEach>
                             </div>
                         </div>

@@ -3,10 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Alejo/Documents/GitHub/Cookassistjava/cookassist/src/java/models/Order.java</file>
+            <file>file:/C:/Users/Alejo/Documents/GitHub/Cookassistjava/cookassist/web/order_need_bill.jsp</file>
+            <file>file:/C:/Users/Alejo/Documents/GitHub/Cookassistjava/cookassist/web/show_orders.jsp</file>
             <file>file:/C:/Users/Alejo/Documents/GitHub/Cookassistjava/cookassist/web/selected_order.jsp</file>
             <file>file:/C:/Users/Alejo/Documents/GitHub/Cookassistjava/cookassist/web/orders.jsp</file>
             <file>file:/C:/Users/Alejo/Documents/GitHub/Cookassistjava/cookassist/src/java/controllers/orders.java</file>
+            <file>file:/C:/Users/Alejo/Documents/GitHub/Cookassistjava/cookassist/web/order_need_ready.jsp</file>
         </group>
     </open-files>
 </project-private>

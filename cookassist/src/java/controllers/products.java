@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import models.Product;
+import models.User;
 
 
 @MultipartConfig
@@ -21,36 +22,67 @@ public class products extends MainServlet {
             throws ServletException, IOException {
         String option = request.getParameter("option");
         String id = request.getParameter("id");
+        User u = MainServlet.getUser(request);
+        
         RequestDispatcher view;
-        if (option == null){
-            if (id == null){
-                view = request.getRequestDispatcher("products.jsp");
+        
+        if (option != null){
+            if(u != null){
+                if(u.getAdmin()){
+                    if(option.equals("new")){
+                        
+                        MainServlet.loadProductCategories(request);
+                        view = request.getRequestDispatcher("new_product.jsp");
+                        
+                    }else if(option.equals("show")){
+                        
+                        view = request.getRequestDispatcher("show_products.jsp");
+                        
+                    }else if(option.equals("edit") && id != null){
+                        
+                        //Debo verificar que me manden un numero
+                        HashMap<Integer,Product> products = MainServlet.getListProducts(request);
+                        //verificar que no sea null
+                        Product pro = Product.getProductbycode(products, Integer.parseInt(id));
+                        request.setAttribute("product", pro);
+                        view = request.getRequestDispatcher("edit_product.jsp");
+                        
+                    }
+                    else{
+                        view = request.getRequestDispatcher("error.jsp");
+                    }
+                }else{
+                    view = request.getRequestDispatcher("error.jsp");
+                }
             }else{
-                //Debo verificar que me manden un numero
-                HashMap<Integer,Product> products = MainServlet.getListProducts(request);
-                //verificar que no sea null
-                Product pro = Product.getProductbycode(products, Integer.parseInt(id));
-                request.setAttribute("product", pro);
-                view = request.getRequestDispatcher("selected_product.jsp");
+                view = request.getRequestDispatcher("error.jsp");
             }
+            
+            
         }else{
-            if(option.equals("new")){
-                MainServlet.loadProductCategories(request);
-                view = request.getRequestDispatcher("new_product.jsp");
-            }else if(option.equals("show")){ 
-                 view = request.getRequestDispatcher("show_products.jsp");
-            }else if(option.equals("edit") && id != null){
+            if (id != null){
                 //Debo verificar que me manden un numero
                 HashMap<Integer,Product> products = MainServlet.getListProducts(request);
                 //verificar que no sea null
                 Product pro = Product.getProductbycode(products, Integer.parseInt(id));
-                request.setAttribute("product", pro);
-                view = request.getRequestDispatcher("edit_product.jsp");
-            }
-            else{
-                //error.jsp
+                if(pro.getAvailable()){
+                    request.setAttribute("product", pro);
+                    view = request.getRequestDispatcher("selected_product.jsp");
+                }else{
+                    if(u!=null){
+                        if(u.getAdmin()){
+                            request.setAttribute("product", pro);
+                            view = request.getRequestDispatcher("selected_product.jsp");
+                        }else{
+                            view = request.getRequestDispatcher("error.jsp");
+                        }
+                    }else{
+                        view = request.getRequestDispatcher("error.jsp");
+                    }
+                }
+            }else{
                 view = request.getRequestDispatcher("products.jsp");
-            }
+            }          
         }
         view.forward(request, response);      
     }
@@ -150,6 +182,12 @@ public class products extends MainServlet {
             }
             response.sendRedirect("products");
             
+        }else if(option.equals("status") && (id!=null)){
+            HashMap<Integer,Product> products = MainServlet.getListProducts(request);
+            Product p = Product.getProductbycode(products, Integer.parseInt(id));
+            p.setAvailable(!p.getAvailable());
+            response.sendRedirect("products?option=show");
+        
         }else{
             
             view = request.getRequestDispatcher("products.jsp");

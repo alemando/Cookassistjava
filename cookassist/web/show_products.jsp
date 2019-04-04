@@ -30,7 +30,20 @@
                                                 <td>${pro.value.getName()}</td>
                                                 <td>${pro.value.getPrice()}</td>
                                                 <td>${pro.value.category_interpreter(pro.value.getCategory())}</td>
-                                                <td>${pro.value.available_interpreter(pro.value.getAvailable())}</td>
+                                                <c:if test ="${pro.value.getAvailable()}">
+                                                    <td>
+                                                        <form action=<c:url value="/products?option=status&id="/>${pro.value.getCode()} method="POST">
+                                                            <button class="btn btn-lg btn-success btn-block btn_submit">${pro.value.available_interpreter(pro.value.getAvailable())}</button>
+                                                        </form>
+                                                    </td>
+                                                </c:if>
+                                                <c:if test ="${!pro.value.getAvailable()}">
+                                                    <td>
+                                                        <form action=<c:url value="/products?option=status&id="/>${pro.value.getCode()} method="POST">
+                                                            <button class="btn btn-lg btn-danger btn-block btn_submit">${pro.value.available_interpreter(pro.value.getAvailable())}</button>
+                                                        </form>
+                                                    </td>
+                                                </c:if>
                                                 <td>
                                                     <a class="btn btn-primary btn-block" href=<c:url value="/products?id="/>${pro.value.getCode()}>VER</a>
                                                 </td>

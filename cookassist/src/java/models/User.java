@@ -2,17 +2,16 @@ package models;
 import java.util.HashMap;
 
 public class User {
-    private String type_user;
+    private boolean admin;
     private String name;
     private String email;
     private String password;
     private boolean status;
-    private HashMap<Integer,Rating> ListRatings = new HashMap<Integer,Rating>();
     private HashMap<Integer,Order> ListOrders = new HashMap<Integer,Order>();
     private HashMap<Integer,Bill> ListBills = new HashMap<Integer,Bill>();
     
-    public User(String type_user, String name, String email, String password, boolean status){
-        this.type_user = type_user;
+    public User(boolean admin, String name, String email, String password, boolean status){
+        this.admin = admin;
         this.name = name;
         this.email = email;
         this.password = password;
@@ -20,25 +19,13 @@ public class User {
     }
 
 
-    public String getTypeUser(){
-        return type_user;
+    public boolean getAdmin(){
+        return admin;
     }
     
-    public void setTypeUser(String type_user) {
-        this.type_user = type_user;
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
         
-    }
-
-    public HashMap<Integer,Rating> getListRatings() {
-        return ListRatings;
-    }
-
-    public void setListRatings(HashMap<Integer,Rating> ListRatings) {
-        this.ListRatings = ListRatings;
-    }
-    
-    public void setRating(Rating rating) {
-        this.ListRatings.put(rating.getCode(), rating);
     }
 
     public HashMap<Integer,Order> getListOrders() {
@@ -111,17 +98,17 @@ public class User {
         return null;
     }
     
-    public static String type_user_interpreter(String type_user){
+    public static String admin_interpreter(boolean admin){
         String str;
-        if (type_user.equals("0")){
-            str = "Usuario";
-        }else{
+        if (admin){
             str = "Administrador";
+        }else{
+            str = "Usuario";
         }
         return str;
     }
     
-    public static String status_interpreter(Boolean available){
+    public static String status_interpreter(boolean available){
         String str;
         if (available){
             str = "Activo";

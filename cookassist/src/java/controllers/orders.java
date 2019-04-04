@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import models.Chef;
 import models.Order;
 import models.Product;
 import models.User;
@@ -21,7 +22,40 @@ public class orders extends HttpServlet {
         String option = request.getParameter("option");
         String id = request.getParameter("id");
         RequestDispatcher view;
-        if (option == null){
+        if (option != null){
+            if(option.equals("new")){
+                view = request.getRequestDispatcher("new_order.jsp");
+                view.forward(request, response);
+            }else if(option.equals("show")){
+                 view = request.getRequestDispatcher("orders.jsp");
+                 view.forward(request, response);
+            }else if(option.equals("show_orders")){
+                User u = MainServlet.getUser(request);
+                request.setAttribute("ListChefOrders",((Chef) u).getListOrdersChef());
+                view = request.getRequestDispatcher("show_orders.jsp");
+                view.forward(request, response);
+                
+            }else if(option.equals("need_chef")){
+                view = request.getRequestDispatcher("order_need_chef.jsp");
+                view.forward(request, response);
+            }else if(option.equals("show_bill")){
+                User u = MainServlet.getUser(request);
+                HashMap <Integer, Order> user_orders = u.getListOrders();
+                request.setAttribute("ListOrdersUser", user_orders);
+                view = request.getRequestDispatcher("my_orders_bill.jsp");
+                view.forward(request, response);
+            }else if(option.equals("need_ready")){
+                view = request.getRequestDispatcher("order_need_ready.jsp");
+                view.forward(request, response);
+            }else if(option.equals("need_bill")){
+                view = request.getRequestDispatcher("order_need_bill.jsp");
+                view.forward(request, response);
+            }else{
+                view = request.getRequestDispatcher("orders.jsp");
+                view.forward(request, response);
+            }
+            
+        }else{
             if (id != null){
                 //Debo verificar que me manden un numero
                 HashMap<Integer,Order> orders = MainServlet.getListOrders(request);
@@ -31,21 +65,18 @@ public class orders extends HttpServlet {
                 view = request.getRequestDispatcher("selected_order.jsp");
                 view.forward(request, response);
             }else{
-                view = request.getRequestDispatcher("orders.jsp");
-                view.forward(request, response);
+                if(MainServlet.getChef(request)){
+                    response.sendRedirect("orders?option=show_orders");
+                }else{
+                    User u = MainServlet.getUser(request);
+                    HashMap <Integer, Order> user_orders = u.getListOrders();
+                    request.setAttribute("ListOrdersUser", user_orders);
+                    view = request.getRequestDispatcher("my_orders.jsp");
+                    view.forward(request, response);
+                }
+                
             }
-        }else{
-            if(option.equals("new")){
-                view = request.getRequestDispatcher("new_order.jsp");
-                view.forward(request, response);
-            }else if(option.equals("show")){ 
-                 view = request.getRequestDispatcher("orders.jsp");
-                 view.forward(request, response);
-            }else{
-                //error.jsp
-                view = request.getRequestDispatcher("orders.jsp");
-                view.forward(request, response);
-            }
+            
         }
         
     }
@@ -71,7 +102,7 @@ public class orders extends HttpServlet {
             User u = MainServlet.getUser(request);
             HashMap<Integer, Object []> listProducts = MainServlet.getListProductTemp(request);
             String description = request.getParameter("description");
-            Order o = new Order(0,description, u, listProducts);
+            Order o = new Order(0,description, u, listProducts, false);
             MainServlet.insertOrder(request, o);
             MainServlet.setListProductTemp(request, null);
             response.sendRedirect("orders");
@@ -84,6 +115,18 @@ public class orders extends HttpServlet {
             }
             response.sendRedirect("orders?option=new");
             
+        }else if(option.equals("take")){
+            HashMap<Integer,Order> orders = MainServlet.getListOrders(request);
+            Order o = Order.getOrderbycode(orders, Integer.parseInt(id));
+            User u = MainServlet.getUser(request);
+            o.setChef((Chef)u);
+            response.sendRedirect("orders?option=show_orders");
+        }else if(option.equals("status") && (id!=null)){
+            HashMap<Integer,Order> orders = MainServlet.getListOrders(request);
+            Order o = Order.getOrderbycode(orders, Integer.parseInt(id));
+            o.setReady(!o.getReady());
+            response.sendRedirect("orders?option=show_orders");
+        
         }else{
             
             view = request.getRequestDispatcher("products.jsp");

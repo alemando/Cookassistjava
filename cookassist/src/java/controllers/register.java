@@ -26,7 +26,7 @@ public class register extends MainServlet {
         String password = request.getParameter("password");
         
         //validar datos recuerde mensajes tanto de confirmacion como de todo el programa
-        User u = new User("0", name, email, password, true);
+        User u = new User(false, name, email, password, true);
         MainServlet.insertUser(request, u);
         response.sendRedirect("login");
     }

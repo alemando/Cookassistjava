@@ -5,18 +5,16 @@
             <li>
                 <a href=<c:url value="/products"/>>Menu</a>
             </li>
-            <li>
-                <a href=<c:url value="/products?option=new"/>>Crear</a>
-            </li>
-            <li>
-                <a href=<c:url value="/products?option=show"/>>Listar productos</a>
-            </li>
-            <li>
-                <a href="#">Link 4</a>
-            </li>
-            <li>
-                <a href="#">Link 5</a>
-            </li>
+            <c:if test="${!empty user}">
+                <c:if test="${user.getAdmin()}">
+                    <li>
+                        <a href=<c:url value="/products?option=new"/>>Crear</a>
+                    </li>
+                    <li>
+                        <a href=<c:url value="/products?option=show"/>>Listar productos</a>
+                    </li>
+                </c:if>
+            </c:if>
         </ul>
     </div>
 </div>

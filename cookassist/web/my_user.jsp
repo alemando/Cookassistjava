@@ -11,7 +11,7 @@
                                 <div class="card d-block card_select ">
                                     <div class="card-body">
                                         <h5 class="card-title">${user.getName()}</h5>
-                                        <c:if test ="${user.getTypeUser() eq 1}">
+                                        <c:if test ="${user.getAdmin()}">
                                             <p class="card-text">Administrador</p>
                                         </c:if>
                                         <p class="card-text">Email: ${user.getEmail()}</p>
