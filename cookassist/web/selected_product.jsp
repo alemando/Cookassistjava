@@ -23,7 +23,7 @@
                                         </c:if>
                                         <p class="card-text">Descripción: ${product.getDescription()}</p>
                                         <p class="card-text">Precio: $ ${product.getPrice()} pesos</p>
-                                        <c:if test="${!empty user and product.getAvailable()}">
+                                        <c:if test="${!empty user and product.getAvailable() and !chef}">
                                         <button class="btn btn-lg btn-warning btn-block" type="button" data-toggle="collapse" data-target="#collapseid-${product.getCode()}" aria-expanded="false" aria-controls="collapseid-${product.getCode()}">Ordenar</button>
                                         <div class="collapse" id="collapseid-${product.getCode()}">
                                             <div class="card card-body">

@@ -6,42 +6,38 @@
                 <div class="col-md-12">
                     <div class="content">
                         <div class="row">
-                            <h2 class="offset-2">Pedido</h2>
+                            <h2 class="offset-2">Factura</h2>
                         </div>
                         <div class="row">
                             <div class="col-md-8 offset-2">
-                            <c:if test= "${!empty order}">
+                            <c:if test= "${!empty bill}">
                                 <div class="card d-block card_select">
                                     <div class="card-body">
-                                        <h5 class="card-title">Codigo: ${order.getCode()}</h5>
-                                        <p class="card-text">Estado: ${order.ready_interpreter(order.getReady())}</p>
-                                        <p class="card-text">Usuario: ${order.getUser().getName()}</p>
-                                        <p class="card-text">Chef: ${order.getChef().getEmail()}</p>
-                                        <p class="card-text">Factura: ${order.getBill()}</p>
-                                        <p class="card-text">Descripción: ${order.getDescription()}</p>
+                                        <h5 class="card-title">Codigo: ${bill.getCode()}</h5>
+                                        <p class="card-text">Usuario: ${bill.getUser().getName()}</p>
                                         <div class="content table-responsive">
                                             <table class="table table-bordered table-hover">
                                                 <thead class="thead-dark">
                                                     <tr>
-                                                        <th scope="col">#</th>
-                                                        <th scope="col">Nombre</th>
+                                                        <th scope="col">Codigo</th>
+                                                        <th scope="col">Usuario</th>
                                                         <th scope="col">Precio</th>
-                                                        <th scope="col">Cantidad</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <c:forEach items="${order.getListOrderDetails()}" var="order">
+                                                    <c:set var="total" value="${total=0}" scope="page"/>
+                                                    <c:forEach items="${bill.getListOrders()}" var="order">
                                                         <tr>
+                                                            <c:set var="total" value="${total + order.value.total_price()}" scope="page"/>
                                                             <td>${order.value.getCode()}</td>
-                                                            <td>${order.value.getProduct().getName()}</td>
-                                                            <td>${order.value.getPrice()}</td>
-                                                            <td>${order.value.getQuantity()}</td>
+                                                            <td>${order.value.getUser().getEmail()}</td>
+                                                            <td>${order.value.total_price()}</td>
                                                         </tr>
                                                     </c:forEach>
                                                         <tr>
 
                                                             <td>Total</td>
-                                                            <td colspan="4">$ ${order.total_price()} pesos</td>
+                                                            <td colspan="4">$ <c:out value = "${total}"/> pesos</td>
 
                                                         </tr>
                                                 </tbody>

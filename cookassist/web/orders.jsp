@@ -28,7 +28,14 @@
                                                 <td>${order.value.getCode()}</td>
                                                 <td>${order.value.getUser().getEmail()}</td>
                                                 <td>${order.value.getChef().getEmail()}</td>
-                                                <td>${order.value.getBill()}</td>
+                                                <c:if test="${!empty order.value.getBill()}">
+                                                    <td>
+                                                        <a class="btn btn-lg btn-primary btn-block" href=<c:url value="/bills?id="/>${order.value.getBill().getCode()}>VER</a>
+                                                    </td>
+                                                </c:if>
+                                                <c:if test="${empty order.value.getBill()}">
+                                                    <td>Aun sin factura</td>
+                                                </c:if>
                                                 <td>${order.value.ready_interpreter(order.value.getReady())}</td>
                                                 <td>
                                                     <a class="btn btn-lg btn-primary btn-block" href=<c:url value="/orders?id="/>${order.value.getCode()}>VER</a>

@@ -35,7 +35,7 @@
                                                         </td>
                                                     </c:if>
                                                     <c:if test="${!chef}">
-                                                        <td></td>
+                                                        <td>Sin chef</td>
                                                     </c:if>
                                                     <td>${order.value.ready_interpreter(order.value.getReady())}</td>
                                                     <td>

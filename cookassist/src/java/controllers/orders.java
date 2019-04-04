@@ -21,58 +21,68 @@ public class orders extends HttpServlet {
             throws ServletException, IOException {
         String option = request.getParameter("option");
         String id = request.getParameter("id");
+        User u = MainServlet.getUser(request);
+        boolean chef = MainServlet.getChef(request);
         RequestDispatcher view;
         if (option != null){
-            if(option.equals("new")){
-                view = request.getRequestDispatcher("new_order.jsp");
-                view.forward(request, response);
-            }else if(option.equals("show")){
-                 view = request.getRequestDispatcher("orders.jsp");
-                 view.forward(request, response);
-            }else if(option.equals("show_orders")){
-                User u = MainServlet.getUser(request);
-                request.setAttribute("ListChefOrders",((Chef) u).getListOrdersChef());
-                view = request.getRequestDispatcher("show_orders.jsp");
-                view.forward(request, response);
-                
-            }else if(option.equals("need_chef")){
-                view = request.getRequestDispatcher("order_need_chef.jsp");
-                view.forward(request, response);
-            }else if(option.equals("show_bill")){
-                User u = MainServlet.getUser(request);
-                HashMap <Integer, Order> user_orders = u.getListOrders();
-                request.setAttribute("ListOrdersUser", user_orders);
-                view = request.getRequestDispatcher("my_orders_bill.jsp");
-                view.forward(request, response);
-            }else if(option.equals("need_ready")){
-                view = request.getRequestDispatcher("order_need_ready.jsp");
-                view.forward(request, response);
-            }else if(option.equals("need_bill")){
-                view = request.getRequestDispatcher("order_need_bill.jsp");
-                view.forward(request, response);
+            if(u != null){
+                if(option.equals("new") && !chef){
+                    view = request.getRequestDispatcher("new_order.jsp");
+                }else if(option.equals("show") && u.getAdmin() && !chef){
+                     view = request.getRequestDispatcher("orders.jsp");
+                }else if(option.equals("show_orders") && chef){
+                    request.setAttribute("ListChefOrders",((Chef) u).getListOrdersChef());
+                    view = request.getRequestDispatcher("show_orders.jsp");
+                }else if(option.equals("need_chef") &&(u.getAdmin() || chef)){
+                    view = request.getRequestDispatcher("order_need_chef.jsp");
+                }else if(option.equals("show_bill") && !chef){
+                    HashMap <Integer, Order> user_orders = u.getListOrders();
+                    request.setAttribute("ListOrdersUser", user_orders);
+                    view = request.getRequestDispatcher("my_orders_bill.jsp");
+                }else if(option.equals("need_ready")  && u.getAdmin() && !chef){
+                    view = request.getRequestDispatcher("order_need_ready.jsp");
+                }else if(option.equals("need_bill")  && u.getAdmin() && !chef){
+                    view = request.getRequestDispatcher("order_need_bill.jsp");
+                }else{
+                    view = request.getRequestDispatcher("error.jsp");
+                }
             }else{
-                view = request.getRequestDispatcher("orders.jsp");
-                view.forward(request, response);
+                view = request.getRequestDispatcher("error.jsp");
+                
             }
+            view.forward(request, response);
             
         }else{
             if (id != null){
-                //Debo verificar que me manden un numero
-                HashMap<Integer,Order> orders = MainServlet.getListOrders(request);
-                //verificar que no sea null
-                Order o = Order.getOrderbycode(orders, Integer.parseInt(id));
-                request.setAttribute("order", o);
-                view = request.getRequestDispatcher("selected_order.jsp");
+                if(u != null){
+                    //Debo verificar que me manden un numero
+                    HashMap<Integer,Order> orders = MainServlet.getListOrders(request);
+                    //verificar que no sea null
+                    Order o = Order.getOrderbycode(orders, Integer.parseInt(id));
+                    if(u.getAdmin() || (u.getEmail().equals(o.getUser().getEmail())) || chef){
+                        request.setAttribute("order", o);
+                        view = request.getRequestDispatcher("selected_order.jsp");
+                    }else{
+                        view = request.getRequestDispatcher("error.jsp");
+                    }
+                }else{
+                    view = request.getRequestDispatcher("error.jsp");
+                }
                 view.forward(request, response);
+                
             }else{
                 if(MainServlet.getChef(request)){
                     response.sendRedirect("orders?option=show_orders");
                 }else{
-                    User u = MainServlet.getUser(request);
-                    HashMap <Integer, Order> user_orders = u.getListOrders();
-                    request.setAttribute("ListOrdersUser", user_orders);
-                    view = request.getRequestDispatcher("my_orders.jsp");
+                    if(u != null){
+                        HashMap <Integer, Order> user_orders = u.getListOrders();
+                        request.setAttribute("ListOrdersUser", user_orders);
+                        view = request.getRequestDispatcher("my_orders.jsp");
+                    }else{
+                         view = request.getRequestDispatcher("error.jsp");
+                    }
                     view.forward(request, response);
+                    
                 }
                 
             }

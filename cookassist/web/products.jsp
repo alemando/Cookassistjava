@@ -20,7 +20,7 @@
                                         <p class="card-text">${pro.value.getDescription()}</p>
                                         <p class="card-text">$ ${pro.value.getPrice()} pesos</p>
                                         <a class="btn btn-lg btn-primary btn-block" href=<c:url value="/products?id="/>${pro.value.getCode()}>VER</a>
-                                        <c:if test="${!empty user}">
+                                        <c:if test="${!empty user and !chef}">
                                         <button class="btn btn-lg btn-warning btn-block" type="button" data-toggle="collapse" data-target="#collapseid-${pro.value.getCode()}" aria-expanded="false" aria-controls="collapseid-${pro.value.getCode()}">Ordenar</button>
                                         <div class="collapse" id="collapseid-${pro.value.getCode()}">
                                             <div class="card card-body">

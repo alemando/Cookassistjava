@@ -7,7 +7,7 @@
                 <div class="col-md-10">
                     <div class="content">
                         <div class="row">
-                            <h2>Pedidos sin chef</h2>
+                            <h2>Pedidos sin pagar</h2>
                         </div>
                         <div class="row">
                             <div class="content table-responsive">
@@ -30,7 +30,12 @@
                                                     <td>${order.value.getUser().getEmail()}</td>
                                                     <td>${order.value.getChef().getEmail()}</td>
                                                     <td>${order.value.ready_interpreter(order.value.getReady())}</td>
-                                                    <td>${order.value.getBill()}</td>
+                                                    <td>
+                                                        <form action=<c:url value="/bills?option=add&id="/>${order.value.getCode()} method="POST">
+                                                            <button class="btn btn-lg btn-success btn-block btn_submit">Agregar a factura</button>
+                                                        </form>
+
+                                                    </td>
                                                     <td>
                                                         <a class="btn btn-lg btn-primary btn-block" href=<c:url value="/orders?id="/>${order.value.getCode()}>VER</a>
                                                     </td>
@@ -40,6 +45,13 @@
                                         </c:forEach>
                                     </tbody>
                                 </table>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="content">
+                                <div class="col-md-12">
+                                    <a class="btn btn-lg btn-primary btn-block" href=<c:url value="/bills?option=new"/>>Ir a factura</a>
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -3,7 +3,8 @@
     <section>
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-12">
+                <%@ include file="nav_div_chef.jsp" %>
+                <div class="col-md-10">
                     <div class="content">
                         <div class="row">
                             <h2>Chefs</h2>

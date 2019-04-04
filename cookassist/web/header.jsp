@@ -37,7 +37,7 @@
                         <li class="li_nav nav-item">
                             <a class="btn_nav btn nav-link" href=<c:url value="/bills"/>>Facturas</a>
                         </li>
-                        <c:if test="${user.getAdmin()}">
+                        <c:if test="${user.getAdmin() and !chef}">
                             <li class="li_nav nav-item">
                                 <a class="btn_nav btn nav-link" href=<c:url value="/users"/>>Usuarios</a>
                             </li>
@@ -54,6 +54,7 @@
                 </ul>
                 <c:if test="${!empty user}">
                     <ul class="navbar-nav ml-auto">
+                        <c:if test="${!chef}">
                         <li class="li_nav nav-item dropdown">
                             <a class="btn_nav nav-link dropdown-toggle" href="" id="orderDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Mis pedidos
@@ -61,7 +62,7 @@
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="orderDropdown">
                                 <h6 class="dropdown-header">Pedido actual</h6>
                                 <c:if test="${!empty ListProductTemp}">
-                                    <a class="dropdown-itListProductTempem" href=<c:url value="/orders?option=new"/>>Mi pedido</a>
+                                    <a class="dropdown-item" href=<c:url value="/orders?option=new"/>>Mi pedido</a>
                                 </c:if>
                                 <div class="dropdown-divider"></div>
                                 <h6 class="dropdown-header">Pedidos en proceso</h6>
@@ -69,7 +70,8 @@
                                     <a class="dropdown-item" href=<c:url value="/orders?id="/>${order.value.getCode()}>Pedido # ${order.value.getCode()}</a>
                                 </c:forEach>
                             </div>
-                          </li>
+                        </li>
+                        </c:if>
                         <li class="li_nav nav-item dropdown">
                             <a class="btn_nav nav-link dropdown-toggle" href=<c:url value="/my_user"/> id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <c:if test="${chef}">Chef</c:if>

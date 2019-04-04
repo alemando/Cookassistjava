@@ -1,18 +1,24 @@
 package models;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Bill {
     public int code;
-    public Date date;
     public User user;
-    private  List<Order> ListOrders = new ArrayList<Order>(){};
+    private HashMap<Integer,Order> ListOrders = new HashMap<Integer,Order>();
     
-    public Bill(int code, Date date, User user, List<Order> ListOrders){
-        this.code = code;
-        this.date = date;
-        this.user = user;
+    public Bill(int code, User user, HashMap<Integer,Order> ListOrders){
+        if(code == 0){
+            Product.cons ++;
+            this.code = Product.cons;
+        }else{
+            this.code = code;
+        }
+        this.setUser(user);
+        for (Map.Entry<Integer, Order> entry : ListOrders.entrySet()) {
+            this.setOrder(entry.getValue());
+        }
+        
         this.ListOrders = ListOrders;
     }
     
@@ -24,32 +30,39 @@ public class Bill {
         this.code = code; 
     }
     
-    public Date getDate(){
-        return date;
-    }
-    
-    public void setDate(Date date){
-        this.date = date;
-    }
-    
     public User getUser(){
         return user;
     }
     
     public void setUser(User user){
         this.user = user;
+        user.setBill(this);
     }
 
-    public List<Order> getListOrders() {
+    public HashMap<Integer,Order> getListOrders() {
         return ListOrders;
     }
 
-    public void setListOrders(List<Order> ListOrders) {
+    public void setListOrders(HashMap<Integer,Order> ListOrders) {
         this.ListOrders = ListOrders;
     }
     
     public void setOrder(Order order) {
-        this.ListOrders.add(order);
+        this.ListOrders.put(order.getCode(), order);
+        order.setBill(this);
+    }
+    
+    public int total_price(){
+        HashMap<Integer, Order> orders = this.getListOrders();
+        int total_price = 0;
+        for (Map.Entry<Integer, Order> entry : orders.entrySet()) {
+            total_price += entry.getValue().total_price();
+        }
+        return total_price;
+    }
+    
+    public static Bill getBillbycode(HashMap<Integer,Bill> bills, int code){
+        return bills.get(code);
     }
     
 }

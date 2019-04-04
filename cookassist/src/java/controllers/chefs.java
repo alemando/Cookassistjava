@@ -18,17 +18,27 @@ public class chefs extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String option = request.getParameter("option");
+        User u = MainServlet.getUser(request);
         RequestDispatcher view;
-        if (option != null){
-            if(option.equals("new")){
-                view = request.getRequestDispatcher("new_chef.jsp");
+        if(u != null ){
+            if(u.getAdmin()){
+                if (option != null){
+                    if(option.equals("new")){
+                        view = request.getRequestDispatcher("new_chef.jsp");
+                    }else{
+                        view = request.getRequestDispatcher("chefs.jsp");
+                    }
+
+                }else{
+                    view = request.getRequestDispatcher("chefs.jsp");
+                }
             }else{
-                view = request.getRequestDispatcher("chefs.jsp");
+                view = request.getRequestDispatcher("error.jsp");
             }
-            
         }else{
-            view = request.getRequestDispatcher("chefs.jsp");
+            view = request.getRequestDispatcher("error.jsp");
         }
+        
         
         view.forward(request, response);
     }

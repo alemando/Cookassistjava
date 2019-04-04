@@ -49,6 +49,7 @@ public class Index extends HttpServlet {
         }else{
             MainServlet.setUser(request, null);
             MainServlet.setListProductTemp(request, null);
+            MainServlet.setListOrderTemp(request, null);
             RequestDispatcher view = request.getRequestDispatcher("index.jsp");
             view.forward(request, response);
         }

@@ -3,7 +3,8 @@
     <section>
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-8 offset-2" >
+                <%@ include file="nav_div_chef.jsp" %>
+                <div class="col-md-8" >
                     <div class="content">
                         <form action="<c:url value="/chefs?option=new"/>" class="form-horizontal" method="POST">
                             <div class="row">

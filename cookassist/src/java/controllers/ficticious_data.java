@@ -5,6 +5,7 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import models.Bill;
 import models.Chef;
 import models.Order;
 import models.Product;
@@ -71,22 +72,67 @@ public class ficticious_data extends MainServlet {
             put(cafe.getCode(), new Object[]{cafe, 6});
         }};
         
-        MainServlet.insertOrder(request,new Order(0, "Delicioso", u1, ListProducts1, false ));
-        MainServlet.insertOrder(request,new Order(0, "Delicioso", u1, ListProducts2, false ));
-        MainServlet.insertOrder(request,new Order(0, "Delicioso", u1, ListProducts3, false ));
         
-        MainServlet.insertOrder(request,new Order(0, "Delicioso", u2, ListProducts1, false ));
-        MainServlet.insertOrder(request,new Order(0, "Delicioso", u2, ListProducts2, false ));
-        MainServlet.insertOrder(request,new Order(0, "Delicioso", u2, ListProducts3, false ));
+        Order o1 = new Order(0, "Delicioso", u1, ListProducts1, false );
+        Order o2 = new Order(0, "Delicioso", u1, ListProducts2, false );
+        Order o3 = new Order(0, "Delicioso", u1, ListProducts3, false );
+        Order o4 = new Order(0, "Delicioso", u2, ListProducts1, false );
+        Order o5 = new Order(0, "Delicioso", u2, ListProducts2, false );
+        Order o6 = new Order(0, "Delicioso", u2, ListProducts3, false );
+        Order o7 = new Order(0, "Delicioso", u3, ListProducts1, false );
+        Order o8 = new Order(0, "Delicioso", u3, ListProducts2, false );
+        Order o9 = new Order(0, "Delicioso", u3, ListProducts3, false );
+        Order o10 = new Order(0, "Delicioso", u4, ListProducts1, false );
+        Order o11 = new Order(0, "Delicioso", u5, ListProducts2, false );
+        Order o12 = new Order(0, "Delicioso", u5, ListProducts3, false );
         
-        MainServlet.insertOrder(request,new Order(0, "Delicioso", u3, ListProducts1, false ));
-        MainServlet.insertOrder(request,new Order(0, "Delicioso", u3, ListProducts2, false ));
-        MainServlet.insertOrder(request,new Order(0, "Delicioso", u3, ListProducts3, false ));
+        MainServlet.insertOrder(request,o1);
+        MainServlet.insertOrder(request,o2);
+        MainServlet.insertOrder(request,o3);
         
-        MainServlet.insertOrder(request,new Order(0, "Delicioso", u4, ListProducts1, false ));
-        MainServlet.insertOrder(request,new Order(0, "Delicioso", u5, ListProducts2, false ));
-        MainServlet.insertOrder(request,new Order(0, "Delicioso", u5, ListProducts3, false ));
+        MainServlet.insertOrder(request,o4);
+        MainServlet.insertOrder(request,o5);
+        MainServlet.insertOrder(request,o6);
         
+        MainServlet.insertOrder(request,o7);
+        MainServlet.insertOrder(request,o8);
+        MainServlet.insertOrder(request,o9);
+        
+        MainServlet.insertOrder(request,o10);
+        MainServlet.insertOrder(request,o11);
+        MainServlet.insertOrder(request,o12);
+        
+        o2.setChef(u4);
+        o11.setChef(u4);
+        
+        o9.setChef(u5);
+        o9.setReady(true);
+        
+        o5.setChef(u5);
+        o5.setReady(true);
+        
+        o6.setChef(u4);
+        o6.setReady(true);
+        
+        o1.setChef(u5);
+        o1.setReady(true);
+        
+        o4.setChef(u4);
+        o4.setReady(true);
+       
+        o12.setChef(u5);
+        o12.setReady(true);
+        
+        //Facturas
+        HashMap<Integer,Order> ListOrders1 = new HashMap<Integer, Order>(){{
+            put(o12.getCode(), o12);
+        }};
+        HashMap<Integer,Order> ListOrders2 = new HashMap<Integer, Order>(){{
+            put(o12.getCode(), o1);
+            put(o12.getCode(), o5);
+        }};
+        MainServlet.insertBill(request, new Bill(0, u1, ListOrders1));
+        MainServlet.insertBill(request, new Bill(0, u4, ListOrders2));
         
         response.sendRedirect("");
     }

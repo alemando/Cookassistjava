@@ -17,7 +17,6 @@
                                             <th scope="col">Codigo</th>
                                             <th scope="col">Estado</th>
                                             <th scope="col">Chef</th>
-                                            <th scope="col">Factura</th>
                                             <th scope="col">Ver</th>
                                         </tr>
                                     </thead>
@@ -27,8 +26,7 @@
                                                 <tr>
                                                     <td>${order.value.getCode()}</td>
                                                     <td>${order.value.ready_interpreter(order.value.getReady())}</td>
-                                                    <td>${order.value.getChef()}</td>
-                                                    <td>${order.value.getBill()}</td>
+                                                    <td>${order.value.getChef().getEmail()}</td>
                                                     <td>
                                                         <a class="btn btn-lg btn-primary btn-block" href=<c:url value="/orders?id="/>${order.value.getCode()}>VER</a>
                                                     </td>

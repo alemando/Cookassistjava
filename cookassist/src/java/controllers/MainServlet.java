@@ -4,6 +4,7 @@ import java.util.HashMap;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import models.Bill;
 import models.Chef;
 import models.Order;
 import models.Product;
@@ -16,6 +17,8 @@ public class MainServlet extends HttpServlet  {
         request.setAttribute("messages", Messages.list_texts);
     }
     
+    
+    //Lista productos
     public static void insertProduct(HttpServletRequest request, Product p){
         HttpSession session = request.getSession();        
         HashMap<Integer,Product> products = new HashMap<Integer,Product>();
@@ -35,16 +38,27 @@ public class MainServlet extends HttpServlet  {
         return products;
     }
     
-    public static void insertUser(HttpServletRequest request, User u){
+    //Lista facturas
+    public static void insertBill(HttpServletRequest request, Bill b){
         HttpSession session = request.getSession();        
-        HashMap<String,User> users = new HashMap<String,User>();
-        if(null != session.getAttribute("ListUsers")){
-            users = (HashMap<String,User>) session.getAttribute("ListUsers");
+        HashMap<Integer,Bill> bills = new HashMap<Integer,Bill>();
+        if(null != session.getAttribute("ListBills")){
+            bills = (HashMap<Integer,Bill>) session.getAttribute("ListBills");
         }
-        users.put(u.getEmail(), u);
-        session.setAttribute("ListUsers", users);
+        bills.put(b.getCode(), b);
+        session.setAttribute("ListBills", bills);
     }
     
+    public static HashMap<Integer, Bill> getListBills(HttpServletRequest request){
+        HttpSession session = request.getSession();        
+        HashMap<Integer,Bill> bills = new HashMap<Integer,Bill>();
+        if(null != session.getAttribute("ListBills")){
+            bills = (HashMap<Integer,Bill>) session.getAttribute("ListBills");
+        }
+        return bills;
+    }
+    
+    //Lista y todo sobre chef
     public static void insertChef(HttpServletRequest request, Chef c){
         MainServlet.insertUser(request, c);
         HttpSession session = request.getSession();        
@@ -65,11 +79,6 @@ public class MainServlet extends HttpServlet  {
         return chefs;
     }
     
-    public static void setUser(HttpServletRequest request, User u){
-        HttpSession session = request.getSession();
-        session.setAttribute("user", u);
-    }
-    
     public static void setChef(HttpServletRequest request, boolean status_chef){
         HttpSession session = request.getSession();
         session.setAttribute("chef", status_chef);
@@ -78,6 +87,23 @@ public class MainServlet extends HttpServlet  {
     public static boolean getChef(HttpServletRequest request){
         HttpSession session = request.getSession();
         return (boolean) session.getAttribute("chef");
+    }
+    
+    
+    //Lista y todo sobre usuarios
+    public static void insertUser(HttpServletRequest request, User u){
+        HttpSession session = request.getSession();        
+        HashMap<String,User> users = new HashMap<String,User>();
+        if(null != session.getAttribute("ListUsers")){
+            users = (HashMap<String,User>) session.getAttribute("ListUsers");
+        }
+        users.put(u.getEmail(), u);
+        session.setAttribute("ListUsers", users);
+    }
+    
+    public static void setUser(HttpServletRequest request, User u){
+        HttpSession session = request.getSession();
+        session.setAttribute("user", u);
     }
     
     public static Boolean userSession(HttpServletRequest request){
@@ -98,6 +124,13 @@ public class MainServlet extends HttpServlet  {
         return users;
     }
     
+    public static User getUser(HttpServletRequest request){
+        HttpSession session = request.getSession();        
+        User user = (User)session.getAttribute("user");
+        return user;
+    }
+    
+    //Lista pedidos
     public static HashMap<Integer, Order> getListOrders(HttpServletRequest request){
         HttpSession session = request.getSession();        
         HashMap<Integer,Order> orders = new HashMap<Integer,Order>();
@@ -117,12 +150,7 @@ public class MainServlet extends HttpServlet  {
         session.setAttribute("ListOrders", orders);
     }
     
-    public static User getUser(HttpServletRequest request){
-        HttpSession session = request.getSession();        
-        User user = (User)session.getAttribute("user");
-        return user;
-    }
-    
+    //Productos temporales
     public static HashMap<Integer,Object []> getListProductTemp(HttpServletRequest request){
         HttpSession session = request.getSession();        
         HashMap<Integer,Object []> product_temp = new HashMap<Integer,Object []>();
@@ -159,7 +187,39 @@ public class MainServlet extends HttpServlet  {
     }
     
     
+    //Pedidos temporales
+    public static HashMap<Integer,Order> getListOrderTemp(HttpServletRequest request){
+        HttpSession session = request.getSession();        
+        HashMap<Integer,Order> order_temp = new HashMap<Integer,Order>();
+        if(null != session.getAttribute("ListOrderTemp")){
+            order_temp = (HashMap<Integer,Order>) session.getAttribute("ListOrderTemp");
+        }
+        return order_temp;
+    }
     
+    public static void setListOrderTemp(HttpServletRequest request, HashMap<Integer,Order> orders){
+        HttpSession session = request.getSession();        
+        session.setAttribute("ListOrderTemp", orders);
+    }
+    
+    public static void removeItemListOrderTemp(HttpServletRequest request, Order o){
+        HttpSession session = request.getSession();        
+        HashMap<Integer,Order> order_temp = (HashMap<Integer,Order>) session.getAttribute("ListOrderTemp");
+        order_temp.remove(o.getCode());
+    }
+    
+    public static void insertOrderOrderTemp(HttpServletRequest request, Order o){
+        HttpSession session = request.getSession();        
+        HashMap<Integer,Order> order_temp = new HashMap<Integer,Order>();
+        if(null != session.getAttribute("ListOrderTemp")){
+            order_temp = (HashMap<Integer,Order>) session.getAttribute("ListOrderTemp");
+        }
+        order_temp.put(o.getCode(), o);
+        
+        session.setAttribute("ListOrderTemp", order_temp);
+    }
+    
+    //Dropdown de categorias
     public static void loadProductCategories(HttpServletRequest request){
         HttpSession session = request.getSession();        
         HashMap<String, String> categories = Product.categories;

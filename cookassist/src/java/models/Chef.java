@@ -1,7 +1,5 @@
 package models;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class Chef extends User {
     private boolean status_chef;

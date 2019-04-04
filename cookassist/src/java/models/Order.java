@@ -95,9 +95,20 @@ public class Order {
         this.ready = ready;
     }
     
+    public int total_price(){
+        HashMap<String, OrderDetail> order_details = this.getListOrderDetails();
+        int total_price = 0;
+        for (Map.Entry<String, OrderDetail> entry : order_details.entrySet()) {
+            total_price += entry.getValue().getPrice()*entry.getValue().getQuantity();
+        }
+        return total_price;
+    }
+    
     public static Order getOrderbycode(HashMap<Integer,Order> orders, int code){
         return orders.get(code);
     }
+    
+    
     
     public static String ready_interpreter(Boolean ready){
         String str;
