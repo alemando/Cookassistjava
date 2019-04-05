@@ -7,4 +7,3 @@
 7;Pepino;Delicioso, suculento pepino;0;3;img/id-7.jpg;true
 8;lasana;Delicioso;120000;3;img/id-8.jpg;true
 9;Carne;Rica y nutritiva;120000;3;img/id-9.jpg;true
-
