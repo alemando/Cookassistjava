@@ -92,6 +92,7 @@ public class products extends MainServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         String option = request.getParameter("option");
         String id = request.getParameter("id");
         RequestDispatcher view;

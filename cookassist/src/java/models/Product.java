@@ -32,7 +32,6 @@ public class Product {
             }
             this.code = code;
         }
-        System.out.println(Product.cons);
         this.name = name;
         this.description = description;
         this.price = price;

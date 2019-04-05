@@ -34,9 +34,11 @@
                         <li class="li_nav nav-item">
                             <a class="btn_nav btn nav-link" href=<c:url value="/orders"/>>${messages.get("order_title")}</a>
                         </li>
+                        <c:if test="${!chef}">
                         <li class="li_nav nav-item">
                             <a class="btn_nav btn nav-link" href=<c:url value="/bills"/>>${messages.get("bill_title")}</a>
                         </li>
+                        </c:if>
                         <c:if test="${user.getAdmin() and !chef}">
                             <li class="li_nav nav-item">
                                 <a class="btn_nav btn nav-link" href=<c:url value="/users"/>>${messages.get("user_title")}</a>
@@ -68,7 +70,9 @@
                                 <div class="dropdown-divider"></div>
                                 <h6 class="dropdown-header">${messages.get("order_inp")} </h6>
                                 <c:forEach items="${user.getListOrders()}" var="order">
+                                    <c:if test="${!order.value.getReady()}">
                                     <a class="dropdown-item" href=<c:url value="/orders?id="/>${order.value.getCode()}>${messages.get("order_n")} ${order.value.getCode()}</a>
+                                    </c:if>
                                 </c:forEach>
                             </div>
                         </li>

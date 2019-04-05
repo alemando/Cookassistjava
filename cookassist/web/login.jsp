@@ -16,7 +16,7 @@
                         </div>
                         <div class="form-group">
                             <br>
-                            <input type="submit" name="submit" class="btn btn-info btn-md" value="submit">
+                            <input type="submit" name="submit" class="btn btn-info btn-md" value="${messages.get("send")}">
                         </div>
                         <div id="register-link" class="text-right">
                             <a href=<c:url value="/register"/> >${messages.get("register")}</a>
