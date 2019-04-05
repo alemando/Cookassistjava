@@ -6,11 +6,11 @@
                 <%@ include file="nav_div_bill.jsp" %>
                 <div class="col-md-10">
                     <div class="content">
-                        <h2>Factura</h2>
+                        <h2>${messages.get("bill_title")}</h2>
                         <form id="bill"action="<c:url value="/bills?option=new"/>" class="form-horizontal" method="POST"></form>
                         <div class="row">
                             <div class="form-group col-md-12">
-                                <label>* Usuario</label>
+                                <label>* ${messages.get("user")}</label>
                                 <select form="bill" id="user" class="form-control" name="user" required>
                                     <option></option>
                                     <c:forEach items="${ListUsers}" var="user">
@@ -21,16 +21,16 @@
                         </div>
                         <div class="row">
                             <div class="col-md">
-                                <h4>Pedidos</h4>
+                                <h4>${messages.get("order_title")}</h4>
                             </div>
                             <div class="content table-responsive">
                                 <table class="table table-bordered table-hover">
                                     <thead class="thead-dark">
                                         <tr>
-                                            <th scope="col">Codigo</th>
-                                            <th scope="col">Usuario</th>
-                                            <th scope="col">Precio</th>
-                                            <th scope="col">Eliminar</th>
+                                            <th scope="col">${messages.get("code")}</th>
+                                            <th scope="col">${messages.get("user")}</th>
+                                            <th scope="col">${messages.get("price")}</th>
+                                            <th scope="col">${messages.get("remove")}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -49,8 +49,8 @@
                                         </c:forEach>
                                             <tr>
                                                 
-                                                <td>Total</td>
-                                                <td colspan="4">$ <c:out value = "${total}"/> pesos</td>
+                                                <td>${messages.get("total")}</td>
+                                                <td colspan="4">$ <c:out value = "${total}"/> ${messages.get("cop")}</td>
                                                 
                                             </tr>
                                     </tbody>
@@ -60,7 +60,7 @@
                         <c:if test="${!empty ListOrderTemp}">
                             <div class="row">
                                 <div class="col-md">
-                                    <button class="btn btn-lg btn-success btn-block btn_submit" form="bill">Crear factura</button>
+                                    <button class="btn btn-lg btn-success btn-block btn_submit" form="bill">${messages.get("new_bill")}</button>
                                 </div>
                             </div>
                         </c:if>                       
@@ -68,7 +68,7 @@
                         <br>
                         <div class="row">
                             <div class="col-md">
-                                 <a class="btn btn-lg btn-primary btn-block" href=<c:url value="/orders?option=need_bill"/>>Ir a pedidos</a>
+                                 <a class="btn btn-lg btn-primary btn-block" href=<c:url value="/orders?option=need_bill"/>>${messages.get("go_orders")}</a>
                             </div>
                         </div>
 

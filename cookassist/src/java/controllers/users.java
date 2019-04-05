@@ -42,7 +42,7 @@ public class users extends MainServlet {
         if(u != null){
             if(option.equals("status")){
                 u.setStatus(!u.getStatus());
-                if(!u.getStatus()){
+                if(u instanceof Chef){
                     ((Chef) u).setStatusChef(false);
                 }
             }else if(option.equals("type")){

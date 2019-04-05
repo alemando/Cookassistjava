@@ -6,17 +6,17 @@
                 <div class="col-md-12">
                     <div class="content">
                         <div class="row">
-                            <h2>Usuarios</h2>
+                            <h2>${messages.get("user_title")}</h2>
                         </div>
                         <div class="row">
                             <div class="content table-responsive">
                                 <table class="table table-bordered table-hover">
                                     <thead class="thead-dark">
                                         <tr>
-                                            <th scope="col">Tipo usuario</th>
-                                            <th scope="col">Nombre</th>
-                                            <th scope="col">Email</th>
-                                            <th scope="col">Estado</th>
+                                            <th scope="col">${messages.get("type_user")}</th>
+                                            <th scope="col">${messages.get("name")}</th>
+                                            <th scope="col">${messages.get("email")}</th>
+                                            <th scope="col">${messages.get("status")}</th>
                                         </tr>
                                     </thead>
                                     <tbody>

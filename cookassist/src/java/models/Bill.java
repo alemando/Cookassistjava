@@ -3,14 +3,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Bill {
+    public static int cons = 0;
     public int code;
     public User user;
     private HashMap<Integer,Order> ListOrders = new HashMap<Integer,Order>();
     
     public Bill(int code, User user, HashMap<Integer,Order> ListOrders){
         if(code == 0){
-            Product.cons ++;
-            this.code = Product.cons;
+            Bill.cons ++;
+            this.code = Bill.cons;
         }else{
             this.code = code;
         }

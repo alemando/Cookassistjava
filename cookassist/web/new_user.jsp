@@ -8,26 +8,26 @@
                         <form action="<c:url value="/register"/>" class="form-horizontal" method="POST">
                             <div class="row">
                                 <div class="form-group col-md-12">
-                                    <label>* Email: </label>
+                                    <label>* ${messages.get("email")}: </label>
                                     <input id="email" class="form-control" type="email" name="email" required>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group col-md-12">
-                                    <label>* Nombre: </label>
+                                    <label>* ${messages.get("name")}: </label>
                                     <input id="name" class="form-control"  type="text" name="name" required>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group col-md-12">
-                                    <label>* Contraseña: </label>
+                                    <label>* ${messages.get("password")}: </label>
                                     <input id="password" class="form-control"  type="password" name="password" required>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md">
-                                    <p id="men_obl">Campos marcados con (*) son obligatorios.</p>
-                                    <button class="btn btn-lg btn-primary btn-block btn_submit">Enviar</button>
+                                    <p id="men_obl">C${messages.get("obl")}</p>
+                                    <button class="btn btn-lg btn-primary btn-block btn_submit">${messages.get("send")}</button>
                                 </div>
                             </div>
                         </form>

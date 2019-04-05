@@ -1,6 +1,7 @@
 package models;
 
 import java.util.HashMap;
+import util.Messages;
 
 public class Product {
     public static HashMap<String,String> categories = new HashMap<String,String>(){{
@@ -26,8 +27,12 @@ public class Product {
             Product.cons ++;
             this.code = Product.cons;
         }else{
+            if(Product.cons<code){
+                Product.cons = code;
+            }
             this.code = code;
         }
+        System.out.println(Product.cons);
         this.name = name;
         this.description = description;
         this.price = price;
@@ -113,9 +118,9 @@ public class Product {
     public static String available_interpreter(Boolean available){
         String str;
         if (available){
-            str = "Disponible";
+            str = Messages.list_texts.get("available");
         }else{
-            str = "No disponible";
+            str = Messages.list_texts.get("not_available");
         }
         return str;
     }
@@ -134,5 +139,6 @@ public class Product {
         this.setAvailable(available);
         
     }
+    
  
 }

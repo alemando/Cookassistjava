@@ -2,6 +2,7 @@ package models;
 
 import java.util.HashMap;
 import java.util.Map;
+import util.Messages;
 
 public class Order {
     public static int cons = 0;
@@ -113,9 +114,9 @@ public class Order {
     public static String ready_interpreter(Boolean ready){
         String str;
         if (ready){
-            str = "Terminado";
+            str = Messages.list_texts.get("finish");
         }else{
-            str = "Sin terminar";
+            str = Messages.list_texts.get("not_finish");
         }
         return str;
     }

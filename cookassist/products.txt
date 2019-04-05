@@ -1,0 +1,8 @@
+1;Arroz con pollo;Arroz con trocitos de pollo, con zanahoria y avichuelas;9500;3;img/id-1.jpg;true
+2;Arroz con leche;Arroz cocinado con dulce y servido con queso;6000;3;img/id-2.jpg;true
+3;Jugo de fresa;Jugo de fresa natural en agua o en leche;4000;1;img/id-3.jpg;true
+4;Cafe;Delicioso cafe colombiano;3000;1;img/id-4.jpg;true
+5;Sopa de pollo;Sopa de pollo, con verduras;8000;3;img/id-5.jpg;true
+6;Papitas fritas;Papitas a la francesa;5000;3;img/id-6.jpg;true
+7;Pepino;Delicioso, suculento pepino;0;3;img/id-7.jpg;true
+8;lasana;dasfasf;120000;3;img/id-8.jpg;true

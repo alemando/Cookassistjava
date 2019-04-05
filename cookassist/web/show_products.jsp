@@ -7,20 +7,20 @@
                 <div class="col-md-10">
                     <div class="content">
                         <div class="row">
-                            <h2>Productos</h2>
+                            <h2>${messages.get("product_title")}</h2>
                         </div>
                         <div class="row">
                             <div class="content table-responsive">
                                 <table class="table table-bordered table-hover">
                                     <thead class="thead-dark">
                                         <tr>
-                                            <th scope="col">Id</th>
-                                            <th scope="col">Nombre</th>
-                                            <th scope="col">Precio</th>
-                                            <th scope="col">Categoria</th>
-                                            <th scope="col">Estado</th>
-                                            <th scope="col">Ver más</th>
-                                            <th scope="col">Editar</th>
+                                            <th scope="col">${messages.get("code")}</th>
+                                            <th scope="col">${messages.get("name")}</th>
+                                            <th scope="col">${messages.get("price")}</th>
+                                            <th scope="col">${messages.get("category")}</th>
+                                            <th scope="col">${messages.get("status")}</th>
+                                            <th scope="col">${messages.get("see")}</th>
+                                            <th scope="col">${messages.get("edit")}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -45,10 +45,10 @@
                                                     </td>
                                                 </c:if>
                                                 <td>
-                                                    <a class="btn btn-primary btn-block" href=<c:url value="/products?id="/>${pro.value.getCode()}>VER</a>
+                                                    <a class="btn btn-primary btn-block" href=<c:url value="/products?id="/>${pro.value.getCode()}>${messages.get("see")}</a>
                                                 </td>
                                                 <td>
-                                                    <a class="btn btn-danger btn-block" href=<c:url value="/products?option=edit&id="/>${pro.value.getCode()}>Editar</a>
+                                                    <a class="btn btn-danger btn-block" href=<c:url value="/products?option=edit&id="/>${pro.value.getCode()}>${messages.get("edit")}</a>
                                                 </td>
                                             </tr>
                                         </c:forEach>

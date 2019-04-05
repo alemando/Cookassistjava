@@ -3,9 +3,9 @@
                 <div id="sub_footer" class="row">
                     <div class=" col-md-6">
                         <div class="copyright">
-                            <p>&copy; CookAssist - All Rigths Reserved</p>
+                            <p>&copy; ${messages.get("arr")}</p>
                             <div class="credits">
-                                Designed by Us
+                                ${messages.get("design")}
                             </div>
                         </div>
                     </div>

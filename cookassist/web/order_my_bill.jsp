@@ -7,18 +7,18 @@
                 <div class="col-md-10">
                     <div class="content">
                         <div class="row">
-                            <h2>Mis pedidos sin pagar</h2>
+                            <h2>${messages.get("my_orders_nbill")}</h2>
                         </div>
                         <div class="row">
                             <div class="content table-responsive">
                                 <table class="table table-bordered table-hover">
                                     <thead class="thead-dark">
                                         <tr>
-                                            <th scope="col">Codigo</th>
-                                            <th scope="col">Estado</th>
-                                            <th scope="col">Chef</th>
-                                            <th scope="col">Factura</th>
-                                            <th scope="col">Ver</th>
+                                            <th scope="col">${messages.get("code")}</th>
+                                            <th scope="col">${messages.get("status")}</th>
+                                            <th scope="col">${messages.get("chef")}</th>
+                                            <th scope="col">${messages.get("bill")}</th>
+                                            <th scope="col">${messages.get("see")}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -31,7 +31,7 @@
                                                     <td>${order.value.getBill()}</td>
                                                     <td>${order.value.getBill()}</td>
                                                     <td>
-                                                        <a class="btn btn-lg btn-primary btn-block" href=<c:url value="/orders?id="/>${order.value.getCode()}>VER</a>
+                                                        <a class="btn btn-lg btn-primary btn-block" href=<c:url value="/orders?id="/>${order.value.getCode()}>${messages.get("see")}</a>
                                                     </td>
                                                 </tr>
                                                 

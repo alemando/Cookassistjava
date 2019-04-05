@@ -14,7 +14,8 @@ import util.Messages;
 public class MainServlet extends HttpServlet  {
     
     public static void setMessages(HttpServletRequest request){
-        request.setAttribute("messages", Messages.list_texts);
+        HttpSession session = request.getSession();  
+        session.setAttribute("messages", Messages.list_texts);
     }
     
     

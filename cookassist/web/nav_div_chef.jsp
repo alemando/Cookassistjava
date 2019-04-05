@@ -3,10 +3,10 @@
         <h4>Opciones</h4>
         <ul class="link-list">
             <li>
-                <a href=<c:url value="/chefs"/>>Chefs</a>
+                <a href=<c:url value="/chefs"/>>${messages.get("chef_title")}</a>
             </li>
             <li>
-                <a href=<c:url value="/chefs?option=new"/>>Nuevo chef</a>
+                <a href=<c:url value="/chefs?option=new"/>>${messages.get("new_chef")}</a>
             </li>
         </ul>
     </div>

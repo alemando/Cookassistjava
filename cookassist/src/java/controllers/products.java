@@ -1,6 +1,8 @@
 package controllers;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -125,6 +127,22 @@ public class products extends MainServlet {
             try {
                 image.write(image_url_write);
                 Product p = new Product(0, name, description, price, category, image_url, true);
+                
+                String app_path = getServletContext().getRealPath("");
+                String  product_path= app_path.substring(0, app_path.length()-10) + "/products.txt";
+                FileWriter fw = new FileWriter(product_path, true);
+                PrintWriter pw = new PrintWriter(fw);
+                String line = Integer.toString(p.getCode())+";";
+                line += p.getName()+";";
+                line += p.getDescription()+";";
+                line += Integer.toString(p.getPrice())+";";
+                line += p.getCategory()+";";
+                line += p.getImageUrl()+";";
+                line += p.getAvailable()+"\n";
+                pw.println(line);
+                pw.close();
+                
+                
                 System.out.println("funciono");
                 MainServlet.insertProduct(request, p);
             } catch (IOException ioObj) {

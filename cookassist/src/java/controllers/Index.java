@@ -26,8 +26,10 @@ public class Index extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        MainServlet.setMessages(request);
         RequestDispatcher view = request.getRequestDispatcher("index.jsp");
-        view.forward(request, response);        
+        view.forward(request, response);
+        
     }
     
     @Override

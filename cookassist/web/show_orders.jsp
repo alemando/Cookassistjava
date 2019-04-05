@@ -7,17 +7,17 @@
                 <div class="col-md-10">
                     <div class="content">
                         <div class="row">
-                            <h2>Pedidos a mi cargo</h2>
+                            <h2>${messages.get("show_orders")}</h2>
                         </div>
                         <div class="row">
                             <div class="content table-responsive">
                                 <table class="table table-bordered table-hover">
                                     <thead class="thead-dark">
                                         <tr>
-                                            <th scope="col">Codigo</th>
-                                            <th scope="col">Usuario</th>
-                                            <th scope="col">Estado</th>
-                                            <th scope="col">Ver</th>
+                                            <th scope="col">${messages.get("code")}</th>
+                                            <th scope="col">${messages.get("user")}</th>
+                                            <th scope="col">${messages.get("status")}</th>
+                                            <th scope="col">${messages.get("see")}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -40,7 +40,7 @@
                                                     </td>
                                                 </c:if>
                                                 <td>
-                                                    <a class="btn btn-lg btn-primary btn-block" href=<c:url value="/orders?id="/>${order.value.getCode()}>VER</a>
+                                                    <a class="btn btn-lg btn-primary btn-block" href=<c:url value="/orders?id="/>${order.value.getCode()}>${messages.get("see")}</a>
                                                 </td>
                                             </tr>
                                         </c:forEach>

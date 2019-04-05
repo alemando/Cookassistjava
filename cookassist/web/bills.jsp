@@ -7,17 +7,17 @@
                 <div class="col-md-10">
                     <div class="content">
                         <div class="row">
-                            <h2>Facturas</h2>
+                            <h2>${messages.get("bill_title")}</h2>
                         </div>
                         <div class="row">
                             <div class="content table-responsive">
                                 <table class="table table-bordered table-hover">
                                     <thead class="thead-dark">
                                         <tr>
-                                            <th scope="col">Codigo</th>
-                                            <th scope="col">Usuario</th>
-                                            <th scope="col">Precio</th>
-                                            <th scope="col">VER</th>
+                                            <th scope="col">${messages.get("code")}</th>
+                                            <th scope="col">${messages.get("user")}</th>
+                                            <th scope="col">${messages.get("price")}</th>
+                                            <th scope="col">${messages.get("see")}</th>
                                         </tr>
                                     </thead>
                                     <tbody>

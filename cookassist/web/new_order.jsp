@@ -13,10 +13,10 @@
                                     <thead class="thead-dark">
                                         <tr>
                                             <th scope="col">#</th>
-                                            <th scope="col">Nombre</th>
-                                            <th scope="col">Precio</th>
-                                            <th scope="col">Cantidad</th>
-                                            <th scope="col">Eliminar</th>
+                                            <th scope="col">${messages.get("name")}</th>
+                                            <th scope="col">${messages.get("price")}</th>
+                                            <th scope="col">${messages.get("quantity")}</th>
+                                            <th scope="col">${messages.get("remove")}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -38,8 +38,8 @@
                                         </c:forEach>
                                             <tr>
                                                 
-                                                <td>Total</td>
-                                                <td colspan="4">$ <c:out value = "${total}"/> pesos</td>
+                                                <td>${messages.get("total")}</td>
+                                                <td colspan="4">$ <c:out value = "${total}"/> ${messages.get("cop")}</td>
                                                 
                                             </tr>
                                     </tbody>
@@ -49,13 +49,13 @@
 
                         <div class="row">
                             <div class="form-group col-md-12">
-                                <label>Descripción:</label>
+                                <label>${messages.get("desc")}:</label>
                                 <textarea id="description" class="form-control" form="order" name="description"></textarea>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md">
-                                <button class="btn btn-lg btn-primary btn-block btn_submit" form="order">Ordenar</button>
+                                <button class="btn btn-lg btn-primary btn-block btn_submit" form="order">${messages.get("order")}</button>
                             </div>
                         </div>
 

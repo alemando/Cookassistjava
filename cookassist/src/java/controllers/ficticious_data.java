@@ -1,5 +1,10 @@
 package controllers;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,18 +19,34 @@ import models.User;
 @WebServlet(urlPatterns = {"/ficticious_data"})
 public class ficticious_data extends MainServlet {
 
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //Productos recordar una clase con datos desde txt
-        MainServlet.insertProduct(request,new Product(1, "Arroz con pollo", "Arroz con trocitos de pollo, con zanahoria y avichuelas", 9500, "3", "img/id-1.jpg", true));
+        try{
+            String app_path = getServletContext().getRealPath("");
+            String  product_path= app_path.substring(0, app_path.length()-10) + "/products.txt";
+            FileReader fr = new FileReader(product_path);
+            BufferedReader br = new BufferedReader(fr);
+            String line;
+            int lines = 0;
+            while((line = br.readLine()) != null){
+                 lines++;
+                String [] product = line.split(";");
+                MainServlet.insertProduct(request,new Product(Integer.parseInt(product[0]), product[1], product[2], Integer.parseInt(product[3]), product[4], product[5], Boolean.parseBoolean(product[6])));
+            }
+            br.close();
+        }catch(IOException e){
+            System.out.println("Error al leer");
+        }
+        
+        //Productos recordar una clase con datos desde txt (Datos manuales por si ocurre algun problema con el txt)
+        /*MainServlet.insertProduct(request,new Product(1, "Arroz con pollo", "Arroz con trocitos de pollo, con zanahoria y avichuelas", 9500, "3", "img/id-1.jpg", true));
         MainServlet.insertProduct(request,new Product(2, "Arroz con leche", "Arroz cocinado con dulce y servido con queso", 6000, "3", "img/id-2.jpg", true));
         MainServlet.insertProduct(request,new Product(3, "Jugo de fresa", "Jugo de fresa natural en agua o en leche", 4000, "1", "img/id-3.jpg", true));
         MainServlet.insertProduct(request,new Product(4, "Café", "Delicioso café colombiano", 3000, "1", "img/id-4.jpg", true));
         MainServlet.insertProduct(request,new Product(5, "Sopa de pollo", "Sopa de pollo, con verduras", 8000, "3", "img/id-5.jpg", true));
         MainServlet.insertProduct(request,new Product(6, "Papitas fritas", "Papitas a la francesa", 5000, "3", "img/id-6.jpg", true));
-        MainServlet.insertProduct(request,new Product(7, "Pepino", "Delicioso, suculento pepino", 0, "3", "img/id-7.jpg", true));
+        MainServlet.insertProduct(request,new Product(7, "Pepino", "Delicioso, suculento pepino", 0, "3", "img/id-7.jpg", true));*/
         
         //Usuarios
         User u1 = new User(true, "Alejandro", "a@p.com", "12345", true);

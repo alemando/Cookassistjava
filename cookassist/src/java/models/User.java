@@ -1,5 +1,6 @@
 package models;
 import java.util.HashMap;
+import util.Messages;
 
 public class User {
     private boolean admin;
@@ -101,9 +102,9 @@ public class User {
     public static String admin_interpreter(boolean admin){
         String str;
         if (admin){
-            str = "Administrador";
+            str = Messages.list_texts.get("admin");
         }else{
-            str = "Usuario";
+            str = Messages.list_texts.get("user");
         }
         return str;
     }
@@ -111,9 +112,9 @@ public class User {
     public static String status_interpreter(boolean available){
         String str;
         if (available){
-            str = "Activo";
+            str = Messages.list_texts.get("actived");
         }else{
-            str = "Inactivo";
+            str = Messages.list_texts.get("inactived");
         }
         return str;
     }
